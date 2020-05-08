@@ -7,6 +7,7 @@
   display: flex;
   justify-content: flex-start;
   margin: 0 auto;
+  border-bottom: 1px solid rgba(84,84,84,0.7);
 }
 
 @media screen and (max-width: 1280px) {
@@ -17,6 +18,6 @@
 
 @media screen and (max-width: 400px) {
   .header{
-    width: 72.2%;
+    width: 100%;
   }
 }
