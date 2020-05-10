@@ -13,5 +13,7 @@
   .profile__job {
     font-size: 14px;
     line-height: 17px;
+    grid-column: 1/-1;
+    text-align: center;
   }
 }
