@@ -1,6 +1,7 @@
 @import url(./__button/cards__button.css);
 @import url(./__info/cards__info.css);
 @import url(./__item/cards__item.css);
+@import url(./__img/cards__img.css);
 @import url(./__title/cards__title.css);
 
 .cards {
@@ -8,6 +9,13 @@
   display: grid;
   justify-content: center;
   grid-template-columns: repeat(auto-fit, 282px);
-  grid-gap: 17px;
+  grid-column-gap: 17px;
+  grid-row-gap: 20px;
   margin: 47px auto 66px;
+}
+
+@media screen and (max-width: 930px) {
+  .cards {
+    margin: 36px auto 48px;
+  }
 }
