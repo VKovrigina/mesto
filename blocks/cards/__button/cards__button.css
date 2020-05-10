@@ -1,0 +1,10 @@
+.cards__button {
+  background: url(../../../images/Vector.svg) no-repeat;
+  width: 23px;
+  height: 23px;
+  border: none;
+  padding: 0;
+  margin-right: 21px;
+  cursor: pointer;
+}
+
