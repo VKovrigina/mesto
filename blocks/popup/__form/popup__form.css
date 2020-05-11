@@ -12,12 +12,12 @@
   grid-column: 1/2;
   align-self: start;
   justify-self: end;
-  margin: 0 0 0 40px;
+  margin: 0 0 0 40px;/*для выравнивания по центру именно формы*/
 }
 
 @media screen and (max-width: 600px) {
   .popup__form {
-    width: 85%;
+    width: 90%;
     margin: 0;
   }
 }

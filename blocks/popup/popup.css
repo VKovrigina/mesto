@@ -11,13 +11,10 @@
   position: fixed;
   top: 0;
   left: 0;
-  /*
-  display: flex;
-  justify-content: center;
-  align-items: center;*/
   display: grid;
-  grid-template-columns: repeat(2, auto);
+  grid-template-columns: repeat(2, minmax(min-content, max-content));
   grid-template-rows: repeat(2, auto);
+  /*display: flex;*/
   justify-content: center;
-  align-items: center
+  align-items: center;
 }
