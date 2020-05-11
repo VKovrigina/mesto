@@ -1,0 +1,55 @@
+@import url(./_type/popup__input_type_job.css);
+@import url(./_type/popup__input_type_name.css);
+
+.popup__input {
+  width: 83%;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
+  margin: 0 0 30px;
+  padding: 0 0 13px;
+  outline: none;
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+  color: #000;
+}
+
+.popup__input:last-of-type {
+  margin: 0;
+}
+
+.popup__input::placeholder {
+  font-style: inherit;
+  font-weight: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+.popup__input::-webkit-input-placeholder {
+  font-style: inherit;
+  font-weight: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+.popup__input::-moz-placeholder {
+  font-style: inherit;
+  font-weight: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+.popup__input::-ms-input-placeholder {
+  font-style: inherit;
+  font-weight: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+}
