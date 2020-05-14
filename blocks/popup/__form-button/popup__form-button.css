@@ -13,13 +13,8 @@
   line-height: 22px;
   text-align: center;
   color: #fff;
-  transition: opacity 1s linear;
-  cursor: pointer;
 }
 
-.popup__form-button:hover {
-  opacity: 0.6;
-}
 
 
 

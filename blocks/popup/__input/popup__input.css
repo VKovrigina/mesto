@@ -20,13 +20,19 @@
   margin: 0;
 }
 
+@media screen and (max-width:600px) {
+  .popup__input {
+    width: 95%;
+  }
+}
+
 .popup__input::placeholder {
   font-style: inherit;
   font-weight: inherit;
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
-  color: inherit;
+  color: #808080;
 }
 
 .popup__input::-webkit-input-placeholder {
@@ -35,7 +41,7 @@
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
-  color: inherit;
+  color: #808080;
 }
 .popup__input::-moz-placeholder {
   font-style: inherit;
@@ -43,7 +49,7 @@
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
-  color: inherit;
+  color: #808080;
 }
 .popup__input::-ms-input-placeholder {
   font-style: inherit;
@@ -51,5 +57,5 @@
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
-  color: inherit;
+  color: #808080;
 }
