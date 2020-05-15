@@ -5,20 +5,18 @@ const popup = document.querySelector('.popup');
 //поля формы
 let nameInput = formElement.querySelector('.popup__input_type_name');
 let jobInput = formElement.querySelector('.popup__input_type_job');
-  // Выберите элементы, куда должны быть вставлены значения полей
+// Выберите элементы, куда должны быть вставлены значения полей
 let profileNameInput = document.querySelector('.profile__name');
 let profileJobInput = document.querySelector('.profile__job');
 
-function popupOpen() {
+function popupOpenClose() {
   //значения полей - из текста в profile
-  nameInput.value = profileNameInput.textContent;
-  jobInput.value = profileJobInput.textContent;
+  if (!popup.classList.contains('popup_opened')) {
+    nameInput.value = profileNameInput.textContent;
+    jobInput.value = profileJobInput.textContent;
+  }
 
-  popup.classList.add('popup_open');
-}
-
-function popupClose() {
-  popup.classList.remove('popup_open');
+  popup.classList.toggle('popup_open');
 }
 
 function formSubmitHandler (evt) {
@@ -27,9 +25,9 @@ function formSubmitHandler (evt) {
   profileNameInput.textContent = nameInput.value;
   profileJobInput.textContent = jobInput.value;
 
-  popupClose();
+  popupOpenClose();
 }
 
-buttonEdit.addEventListener('click', popupOpen);
+buttonEdit.addEventListener('click', popupOpenClose);
 formElement.addEventListener('submit', formSubmitHandler);
-buttonClose.addEventListener('click', popupClose);
+buttonClose.addEventListener('click', popupOpenClose);
