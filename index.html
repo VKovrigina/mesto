@@ -6,71 +6,71 @@
   <link rel="stylesheet" href="./pages/index.css">
   <title>Mesto</title>
 </head>
-<body> <!--Спасибо большое код-ревьюеру! Хорошего вам дня :)-->
+<body class="body"> <!--Спасибо большое код-ревьюеру! Хорошего вам дня :)-->
   <div class="page">
 
     <header class="header">
-      <img class ="header__logo" src="./images/Logo.svg" alt="">
+      <img class ="header__logo" src="./images/logo.svg" alt="Логотип сайта Место Россия.">
     </header>
 
     <main class="content">
 
       <section class="profile">
-        <img class="profile__avatar" src="./images/Jacques-Yves-Cousteau.jpg" alt="Фотография пользователя">
+        <img class="profile__avatar" src="./images/jacques-yves-cousteau.jpg" alt="Фотография пользователя">
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
           <button class="profile__edit-button button"></button>
           <p class="profile__job">Исследователь океана</p>
         </div>
-        <button class="profile__add-button button"></button>
+        <button class="profile__add-button button" type="button"></button>
       </section>
 
       <section class="cards">
         <article class="cards__item">
-          <img class="cards__img" src="./images/Karachayevsk.jpg" alt="Фото карточки">
+          <img class="cards__img" src="./images/karachayevsk.jpg" alt="Фото карточки">
           <div class="cards__info">
             <h2 class="cards__title">Карачаевск</h2>
-            <button class="cards__button"></button>
+            <button class="cards__button" type="button"></button>
           </div>
         </article>
 
         <article class="cards__item">
-          <img class="cards__img" src="./images/Elbrus.jpg" alt="Фото карточки">
+          <img class="cards__img" src="./images/elbrus.jpg" alt="Фото карточки">
           <div class="cards__info">
             <h2 class="cards__title">Гора Эльбрус</h2>
-            <button class="cards__button"></button>
+            <button class="cards__button" type="button"></button>
           </div>
         </article>
 
         <article class="cards__item">
-          <img class="cards__img" src="./images/Dombai.jpg" alt="Фото карточки">
+          <img class="cards__img" src="./images/dombai.jpg" alt="Фото карточки">
           <div class="cards__info">
             <h2 class="cards__title">Домбай</h2>
-            <button class="cards__button"></button>
+            <button class="cards__button" type="button"></button>
           </div>
         </article>
 
         <article class="cards__item">
-          <img class="cards__img" src="./images/Elbrus.jpg" alt="Фото карточки">
+          <img class="cards__img" src="./images/elbrus.jpg" alt="Фото карточки">
           <div class="cards__info">
             <h2 class="cards__title">Гора Эльбрус</h2>
-            <button class="cards__button"></button>
+            <button class="cards__button" type="button"></button>
           </div>
         </article>
 
         <article class="cards__item">
-          <img class="cards__img" src="./images/Dombai.jpg" alt="Фото карточки">
+          <img class="cards__img" src="./images/dombai.jpg" alt="Фото карточки">
           <div class="cards__info">
             <h2 class="cards__title">Домбай</h2>
-            <button class="cards__button"></button>
+            <button class="cards__button" type="button"></button>
           </div>
         </article>
 
         <article class="cards__item">
-          <img class="cards__img" src="./images/Karachayevsk.jpg" alt="Фото карточки">
+          <img class="cards__img" src="./images/karachayevsk.jpg" alt="Фото карточки">
           <div class="cards__info">
             <h2 class="cards__title">Карачаевск</h2>
-            <button class="cards__button"></button>
+            <button class="cards__button" type="button"></button>
           </div>
         </article>
 
@@ -79,14 +79,14 @@
     </main>
 
     <div class="popup">
-      <button class="popup__close-button button"></button>
-      <form class="popup__form">
+      <button class="popup__close-button button" type="button"></button>
+      <form class="popup__form" name="form" method="get" action="#">
         <h2 class="popup__title">Редактировать профиль</h2>
 
-        <input type="text" class="popup__input popup__input_type_name" placeholder="ФИО">
-        <input type="text" class="popup__input popup__input_type_job" placeholder="О себе">
+        <input type="text" name="name" class="popup__input popup__input_type_name" placeholder="ФИО" required>
+        <input type="text" name="job" class="popup__input popup__input_type_job" placeholder="О себе" required>
 
-        <button class="popup__form-button button" type="submit">Сохранить</button>
+        <button class="popup__form-button" type="submit">Сохранить</button>
       </form>
     </div>
 
@@ -94,6 +94,6 @@
       <p class="footer__copyright">&#169;2020 Mesto Russia</p>
     </footer>
   </div>
-  <script src="script.js"></script>
+  <script src="./script/script.js"></script>
 </body>
 </html>

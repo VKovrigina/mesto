@@ -13,5 +13,5 @@
 Спасибо, что интересуетесь моим проектом!
 
 **Ссылка**
-
+[Место](https://vkovrigina.github.io/mesto/index.html)
 

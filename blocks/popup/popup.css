@@ -11,9 +11,15 @@
   position: fixed;
   top: 0;
   left: 0;
-  grid-template-columns: repeat(2, minmax(min-content, max-content));
+  grid-template-columns: 510px;
   grid-template-rows: repeat(2, auto);
   justify-content: center;
   align-items: center;
   display: none;
+}
+
+@media screen and (max-width: 600px) {
+  .popup {
+    grid-template-columns: auto;
+  }
 }
