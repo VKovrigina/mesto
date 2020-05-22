@@ -8,10 +8,54 @@ let jobInput = formElement.querySelector('.popup__input_type_job');
 // Выберите элементы, куда должны быть вставлены значения полей
 let profileNameInput = document.querySelector('.profile__name');
 let profileJobInput = document.querySelector('.profile__job');
+//сонтэйнер для карточек
+const cardContainer = document.querySelector('.cards');
+const initialCards = [
+  {
+      name: 'Камчатский край',
+      link: 'https://images.unsplash.com/photo-1535427284698-c8e68a1eb910?ixlib=rb-1.2.1&auto=format&fit=crop&w=1349&q=80'
+  },
+  {
+      name: 'Челябинская область',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+      name: 'Иваново',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+      name: 'Москва',
+      link: 'https://images.unsplash.com/photo-1567449303183-ae0d6ed1498e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80'
+  },
+  {
+      name: 'Санкт-Петербург',
+      link: 'https://images.unsplash.com/photo-1550643749-d9add3db05e1?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=80'
+  },
+  {
+      name: 'Байкал',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
+
+function addCard(imgValue, titleValue) {
+  //выбрали шаблон
+  const cardTemplate = document.querySelector('#card-template').content;
+  //клонировали шаблон
+  const cardElement = cardTemplate.cloneNode(true);
+  //добавили cardElement путь к изображению
+  cardElement.querySelector('.cards__img').src = imgValue;
+  //добавили cardElement текст карточки
+  cardElement.querySelector('.cards__title').textContent = titleValue;
+  cardContainer.append(cardElement);
+}
+
+initialCards.forEach(function (item) {
+  addCard(item.link, item.name);
+});
 
 function popupOpenClose() {
   //значения полей - из текста в profile
-  if (!popup.classList.contains('popup_opened')) {
+  if (!popup.classList.contains('popup_open')) {
     nameInput.value = profileNameInput.textContent;
     jobInput.value = profileJobInput.textContent;
   }
