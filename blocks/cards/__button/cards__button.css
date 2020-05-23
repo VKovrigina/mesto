@@ -7,9 +7,12 @@
   margin-right: 21px;
   cursor: pointer;
   transition: linear 200ms transform;
+  outline: 0;
+  outline-offset: 0;
 }
 
 .cards__button:hover {
   transform: scale(1.2);
+  opacity: 0.7;
 }
 
