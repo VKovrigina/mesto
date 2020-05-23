@@ -60,6 +60,9 @@ function addCard(imgValue, titleValue) {
   cardElement.querySelector('.cards__img').src = imgValue;
   //добавили cardElement текст карточки
   cardElement.querySelector('.cards__title').textContent = titleValue;
+  cardElement.querySelector('.cards__button').addEventListener('click', function (evt) {
+    evt.target.classList.toggle('cards__button_active');
+    });
   cardContainer.prepend(cardElement);
 }
 //вызов функции addCard для появления изночальных карточек из массива
