@@ -1,20 +1,24 @@
 const buttonEdit = document.querySelector('.profile__edit-button');
 const buttonClose = document.querySelector('.popup__close-button');
 const formElement = document.querySelector('.popup__form');
+const formPlaceElement = document.querySelector('.popup__form_place');
 const popup = document.querySelector('.popup');
 //модификатор для попапа с картачками
 const popupPlace = document.querySelector('.popup_place');
 const buttonAdd = document.querySelector('.profile__add-button');
 //модификатор для книпки закрыть
 const buttonClosePlace = document.querySelector('.popup__close-button_place');
-//поля формы
+//поля форм
 let nameInput = formElement.querySelector('.popup__input_type_name');
 let jobInput = formElement.querySelector('.popup__input_type_job');
+let titleInput = formPlaceElement.querySelector('.popup__input_type_title');
+let imgInput = formPlaceElement.querySelector('.popup__input_type_img');
 // Выберите элементы, куда должны быть вставлены значения полей
 let profileNameInput = document.querySelector('.profile__name');
 let profileJobInput = document.querySelector('.profile__job');
 //контэйнер для карточек
 const cardContainer = document.querySelector('.cards');
+
 const initialCards = [
   {
       name: 'Камчатский край',
@@ -56,13 +60,20 @@ function addCard(imgValue, titleValue) {
   cardElement.querySelector('.cards__img').src = imgValue;
   //добавили cardElement текст карточки
   cardElement.querySelector('.cards__title').textContent = titleValue;
-  cardContainer.append(cardElement);
+  cardContainer.prepend(cardElement);
 }
-
+//вызов функции addCard для появления изночальных карточек из массива
 initialCards.forEach(function (item) {
   addCard(item.link, item.name);
 });
+//функция отправки формы карточек
+function formPlaceSubmitHandler(evt) {
+  evt.preventDefault();
 
+  addCard(imgInput.value, titleInput.value);
+  popupOpenClosePlace()
+}
+//функция открытия-закрытия попапа профиля
 function popupOpenClose() {
   //значения полей - из текста в profile
   if (!popup.classList.contains('popup_open')) {
@@ -72,7 +83,7 @@ function popupOpenClose() {
 
   popup.classList.toggle('popup_open');
 }
-
+//функция отправки формы профиля
 function formSubmitHandler (evt) {
    evt.preventDefault();
   //значения в тексте profile - из значений поля
@@ -87,3 +98,4 @@ formElement.addEventListener('submit', formSubmitHandler);
 buttonClose.addEventListener('click', popupOpenClose);
 buttonAdd.addEventListener('click', popupOpenClosePlace);
 buttonClosePlace.addEventListener('click', popupOpenClosePlace);
+formPlaceElement.addEventListener('submit', formPlaceSubmitHandler);

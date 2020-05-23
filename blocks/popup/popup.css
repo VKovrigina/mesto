@@ -22,7 +22,6 @@
 
 @media screen and (max-width: 600px) {
   .popup {
-    /*grid-template-columns: auto;*/
     grid-template-columns: 280px;
   }
 }

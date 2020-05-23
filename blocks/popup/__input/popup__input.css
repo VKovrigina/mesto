@@ -22,7 +22,10 @@
 
 @media screen and (max-width:600px) {
   .popup__input {
-    width: 95%;
+    width: 83%;
+    font-size: 12px;
+    line-height: 15px;
+    margin: 0 0 20px;
   }
 }
 
@@ -32,7 +35,7 @@
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
-  color: #808080;
+  color: #c4c4c4;
 }
 
 .popup__input::-webkit-input-placeholder {
@@ -41,7 +44,7 @@
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
-  color: #808080;
+  color: #c4c4c4;
 }
 .popup__input::-moz-placeholder {
   font-style: inherit;
@@ -49,7 +52,7 @@
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
-  color: #808080;
+  color: #c4c4c4;
 }
 .popup__input::-ms-input-placeholder {
   font-style: inherit;
@@ -57,5 +60,5 @@
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
-  color: #808080;
+  color: #c4c4c4;
 }
