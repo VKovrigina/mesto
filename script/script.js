@@ -3,6 +3,7 @@ const buttonClose = document.querySelector('.popup__close-button');
 const formElement = document.querySelector('.popup__form');
 const formPlaceElement = document.querySelector('.popup__form_place');
 const popup = document.querySelector('.popup');
+const deleteCardButton = document.querySelector('.cards__button-delete');
 //модификатор для попапа с картачками
 const popupPlace = document.querySelector('.popup_place');
 const buttonAdd = document.querySelector('.profile__add-button');
@@ -50,19 +51,25 @@ const initialCards = [
 function popupOpenClosePlace() {
   popupPlace.classList.toggle('popup_open-place');
 }
+
+function deleteCard() {
+  event.target.closest('.cards__item').remove();
+}
 //функция добавления карточек
 function addCard(imgValue, titleValue) {
   //выбрали шаблон
-  const cardTemplate = document.querySelector('#card-template').content;
+  const cardTemplatePlace = document.querySelector('#card-template').content;
   //клонировали шаблон
-  const cardElement = cardTemplate.cloneNode(true);
+  const cardElement = cardTemplatePlace.cloneNode(true);
   //добавили cardElement путь к изображению
   cardElement.querySelector('.cards__img').src = imgValue;
   //добавили cardElement текст карточки
   cardElement.querySelector('.cards__title').textContent = titleValue;
+  //слушатель для активизации кнопки лайка
   cardElement.querySelector('.cards__button').addEventListener('click', function (evt) {
     evt.target.classList.toggle('cards__button_active');
-    });
+  });
+  cardElement.querySelector('.cards__button-delete').addEventListener('click', deleteCard);
   cardContainer.prepend(cardElement);
 }
 //вызов функции addCard для появления изночальных карточек из массива
@@ -88,7 +95,7 @@ function popupOpenClose() {
 }
 //функция отправки формы профиля
 function formSubmitHandler (evt) {
-   evt.preventDefault();
+  evt.preventDefault();
   //значения в тексте profile - из значений поля
   profileNameInput.textContent = nameInput.value;
   profileJobInput.textContent = jobInput.value;

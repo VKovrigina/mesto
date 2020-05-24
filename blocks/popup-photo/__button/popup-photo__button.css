@@ -3,9 +3,10 @@
   width: 40px;
   background: url(../../../images/close-icon.svg) no-repeat center;
   border: none;
-  align-self: end;
-  justify-self: end;
   padding: 0;
+  position: relative;
+  top: -50px;
+  right: -50px;
 }
 
 @media screen and (max-width: 600px) {
