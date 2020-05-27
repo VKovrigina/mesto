@@ -4,9 +4,10 @@
   background: url(../../../images/close-icon.svg) no-repeat center;
   border: none;
   padding: 0;
+  align-self: flex-end;
   position: relative;
-  top: -50px;
-  right: -50px;
+  top: 0;
+  right: -40px;
 }
 
 @media screen and (max-width: 600px) {
@@ -15,5 +16,8 @@
     height: 20px;
     width: 20px;
     margin: 0;
+    position: relative;
+    top: 0;
+    right: -20px;
   }
 }

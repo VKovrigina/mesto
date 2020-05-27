@@ -1,20 +1,20 @@
-const buttonEdit = document.querySelector('.profile__edit-button');
-const buttonClose = document.querySelector('.popup__close-button');
 const formElement = document.querySelector('.popup__form');
 const formPlaceElement = document.querySelector('.popup__form_place');
-const popup = document.querySelector('.popup');
+const popupProfile = document.querySelector('.popup');
+//кнопки
+const buttonEdit = document.querySelector('.profile__edit-button');
+const buttonClose = document.querySelector('.popup__close-button');
 const deleteCardButton = document.querySelector('.cards__button-delete');
-//модификатор для попапа с картачками
-const popupPlace = document.querySelector('.popup_place');
 const buttonAdd = document.querySelector('.profile__add-button');
-//модификатор для книпки закрыть
+//модификаторы
 const buttonClosePlace = document.querySelector('.popup__close-button_place');
+const popupPlace = document.querySelector('.popup_place');
 //поля форм
 let nameInput = formElement.querySelector('.popup__input_type_name');
 let jobInput = formElement.querySelector('.popup__input_type_job');
 let titleInput = formPlaceElement.querySelector('.popup__input_type_title');
 let imgInput = formPlaceElement.querySelector('.popup__input_type_img');
-// Выберите элементы, куда должны быть вставлены значения полей
+//элементы, куда должны быть вставлены значения полей
 let profileNameInput = document.querySelector('.profile__name');
 let profileJobInput = document.querySelector('.profile__job');
 //контэйнер для карточек
@@ -39,17 +39,22 @@ const initialCards = [
   },
   {
       name: 'Санкт-Петербург',
-      link: 'https://images.unsplash.com/photo-1550643749-d9add3db05e1?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=80'
+      link: 'https://images.unsplash.com/photo-1587507565493-817f6ceb1244?ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80'
   },
   {
       name: 'Байкал',
       link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
-
-//функция закрытия-открытия попапа для добавления карточек
-function popupOpenClosePlace() {
-  popupPlace.classList.toggle('popup_open-place');
+//функция открытия-закрытия попапов, назначаю тип, так как два попапа сверстаны гридами, другой - флексом
+function popupToggle(element, type) {
+  return function() {
+    if (!popupProfile.classList.contains('popup_open')) {
+    nameInput.value = profileNameInput.textContent;
+    jobInput.value = profileJobInput.textContent;
+    }
+    element.classList.toggle(type);
+  }
 }
 
 function deleteCard() {
@@ -70,6 +75,9 @@ function addCard(imgValue, titleValue) {
     evt.target.classList.toggle('cards__button_active');
   });
   cardElement.querySelector('.cards__button-delete').addEventListener('click', deleteCard);
+  cardElement.querySelector('.cards__img').addEventListener('click', function (evt) {
+
+  });
   cardContainer.prepend(cardElement);
 }
 //вызов функции addCard для появления изночальных карточек из массива
@@ -81,18 +89,9 @@ function formPlaceSubmitHandler(evt) {
   evt.preventDefault();
 
   addCard(imgInput.value, titleInput.value);
-  popupOpenClosePlace()
+  popupPlace.classList.toggle('popup_open');
 }
-//функция открытия-закрытия попапа профиля
-function popupOpenClose() {
-  //значения полей - из текста в profile
-  if (!popup.classList.contains('popup_open')) {
-    nameInput.value = profileNameInput.textContent;
-    jobInput.value = profileJobInput.textContent;
-  }
 
-  popup.classList.toggle('popup_open');
-}
 //функция отправки формы профиля
 function formSubmitHandler (evt) {
   evt.preventDefault();
@@ -100,12 +99,12 @@ function formSubmitHandler (evt) {
   profileNameInput.textContent = nameInput.value;
   profileJobInput.textContent = jobInput.value;
 
-  popupOpenClose();
+  popupProfile.classList.toggle('popup_open');
 }
 
-buttonEdit.addEventListener('click', popupOpenClose);
+buttonEdit.addEventListener('click', popupToggle(popupProfile, 'popup_open'));
 formElement.addEventListener('submit', formSubmitHandler);
-buttonClose.addEventListener('click', popupOpenClose);
-buttonAdd.addEventListener('click', popupOpenClosePlace);
-buttonClosePlace.addEventListener('click', popupOpenClosePlace);
+buttonClose.addEventListener('click', popupToggle(popupProfile, 'popup_open'));
+buttonAdd.addEventListener('click', popupToggle(popupPlace, 'popup_open'));
+buttonClosePlace.addEventListener('click', popupToggle(popupPlace, 'popup_open'));
 formPlaceElement.addEventListener('submit', formPlaceSubmitHandler);
