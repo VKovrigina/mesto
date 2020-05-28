@@ -1,0 +1,18 @@
+.cards__button-like {
+  background: url(../../../images/vector.svg) no-repeat transparent;
+  width: 23px;
+  height: 23px;
+  border: none;
+  padding: 0;
+  margin-right: 21px;
+  cursor: pointer;
+  transition: linear 200ms transform;
+  outline: 0;
+  outline-offset: 0;
+}
+
+.cards__button-like:hover {
+  transform: scale(1.2);
+  opacity: 0.6;
+}
+

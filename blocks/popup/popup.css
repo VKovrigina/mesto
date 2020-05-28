@@ -1,8 +1,10 @@
 @import url(./__close-button/popup__close-button.css);
+@import url(./__close-button/_place/popup__close-button_place.css);
 @import url(./__form-button/popup__form-button.css);
 @import url(./__form/popup__form.css);
 @import url(./__input/popup__input.css);
 @import url(./__title/popup__title.css);
+@import url(./_place/popup_place.css);
 
 .popup {
   background: rgba(0, 0, 0, .5);
@@ -15,11 +17,15 @@
   grid-template-rows: repeat(2, auto);
   justify-content: center;
   align-items: center;
-  display: none;
+  display: grid;
+  transition: visibility 0.5s, opacity 0.5s ease;
+  -moz-transition: all 0.5s;
+  visibility: hidden;
+  opacity: 0;
 }
 
 @media screen and (max-width: 600px) {
   .popup {
-    grid-template-columns: auto;
+    grid-template-columns: 280px;
   }
 }

@@ -1,4 +1,4 @@
-.popup_open {
+.popup-photo_open {
   transition: opacity 0.5s;
   -moz-transition: opacity 0.5s;
   visibility: visible;
