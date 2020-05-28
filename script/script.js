@@ -1,14 +1,17 @@
+//спасибо большое код-ревьюеру! Хорошего вам дня :)
+//формы
 const formElement = document.querySelector('.popup__form');
 const formPlaceElement = document.querySelector('.popup__form_place');
+//попапы
 const popupProfile = document.querySelector('.popup');
+const popupPhoto = document.querySelector('.popup-photo');
+const popupPlace = document.querySelector('.popup_place');
 //кнопки
 const buttonEdit = document.querySelector('.profile__edit-button');
 const buttonClose = document.querySelector('.popup__close-button');
-const deleteCardButton = document.querySelector('.cards__button-delete');
 const buttonAdd = document.querySelector('.profile__add-button');
-//модификаторы
+const buttonClosePhoto = document.querySelector('.popup-photo__button');
 const buttonClosePlace = document.querySelector('.popup__close-button_place');
-const popupPlace = document.querySelector('.popup_place');
 //поля форм
 let nameInput = formElement.querySelector('.popup__input_type_name');
 let jobInput = formElement.querySelector('.popup__input_type_job');
@@ -17,6 +20,8 @@ let imgInput = formPlaceElement.querySelector('.popup__input_type_img');
 //элементы, куда должны быть вставлены значения полей
 let profileNameInput = document.querySelector('.profile__name');
 let profileJobInput = document.querySelector('.profile__job');
+let popupPhotoImg = document.querySelector('.popup-photo__img');
+let popupPhotoTitle = document.querySelector('.popup-photo__title');
 //контэйнер для карточек
 const cardContainer = document.querySelector('.cards');
 
@@ -62,21 +67,23 @@ function deleteCard() {
 }
 //функция добавления карточек
 function addCard(imgValue, titleValue) {
-  //выбрали шаблон
   const cardTemplatePlace = document.querySelector('#card-template').content;
-  //клонировали шаблон
   const cardElement = cardTemplatePlace.cloneNode(true);
-  //добавили cardElement путь к изображению
   cardElement.querySelector('.cards__img').src = imgValue;
-  //добавили cardElement текст карточки
+  cardElement.querySelector('.cards__img').alt = titleValue;
   cardElement.querySelector('.cards__title').textContent = titleValue;
   //слушатель для активизации кнопки лайка
-  cardElement.querySelector('.cards__button').addEventListener('click', function (evt) {
-    evt.target.classList.toggle('cards__button_active');
+  cardElement.querySelector('.cards__button-like').addEventListener('click', function (evt) {
+    evt.target.classList.toggle('cards__button-like_active');
   });
+  //слушатель для удаления карточки
   cardElement.querySelector('.cards__button-delete').addEventListener('click', deleteCard);
+  //слушатель для открытия попапа с изображением
   cardElement.querySelector('.cards__img').addEventListener('click', function (evt) {
-
+    popupPhoto.classList.toggle('popup-photo_open');
+    popupPhotoImg.src = imgValue;
+    popupPhotoImg.alt = titleValue;
+    popupPhotoTitle.textContent = titleValue;
   });
   cardContainer.prepend(cardElement);
 }
@@ -85,15 +92,14 @@ initialCards.forEach(function (item) {
   addCard(item.link, item.name);
 });
 //функция отправки формы карточек
-function formPlaceSubmitHandler(evt) {
+function formSubmitHandlerPlace(evt) {
   evt.preventDefault();
 
   addCard(imgInput.value, titleInput.value);
   popupPlace.classList.toggle('popup_open');
 }
-
 //функция отправки формы профиля
-function formSubmitHandler (evt) {
+function formSubmitHandlerProfile (evt) {
   evt.preventDefault();
   //значения в тексте profile - из значений поля
   profileNameInput.textContent = nameInput.value;
@@ -103,8 +109,9 @@ function formSubmitHandler (evt) {
 }
 
 buttonEdit.addEventListener('click', popupToggle(popupProfile, 'popup_open'));
-formElement.addEventListener('submit', formSubmitHandler);
-buttonClose.addEventListener('click', popupToggle(popupProfile, 'popup_open'));
 buttonAdd.addEventListener('click', popupToggle(popupPlace, 'popup_open'));
+buttonClose.addEventListener('click', popupToggle(popupProfile, 'popup_open'));
 buttonClosePlace.addEventListener('click', popupToggle(popupPlace, 'popup_open'));
-formPlaceElement.addEventListener('submit', formPlaceSubmitHandler);
+buttonClosePhoto.addEventListener('click', popupToggle(popupPhoto, 'popup-photo_open'));
+formElement.addEventListener('submit', formSubmitHandlerProfile);
+formPlaceElement.addEventListener('submit', formSubmitHandlerPlace);

@@ -17,7 +17,11 @@
   grid-template-rows: repeat(2, auto);
   justify-content: center;
   align-items: center;
-  display: none;
+  display: grid;
+  transition: visibility 0.5s, opacity 0.5s ease;
+  -moz-transition: all 0.5s;
+  visibility: hidden;
+  opacity: 0;
 }
 
 @media screen and (max-width: 600px) {

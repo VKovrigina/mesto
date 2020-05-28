@@ -1,5 +1,5 @@
-.cards__button {
-  background: url(../../../images/vector.svg) no-repeat;
+.cards__button-like {
+  background: url(../../../images/vector.svg) no-repeat transparent;
   width: 23px;
   height: 23px;
   border: none;
@@ -11,7 +11,7 @@
   outline-offset: 0;
 }
 
-.cards__button:hover {
+.cards__button-like:hover {
   transform: scale(1.2);
   opacity: 0.6;
 }
