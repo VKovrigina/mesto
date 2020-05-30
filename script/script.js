@@ -54,16 +54,8 @@ const initialCards = [
 //функция открытия-закрытия попапов, назначаю тип, так как два попапа сверстаны гридами, другой - флексом
 function popupToggle(element, type) {
   return function() {
-    if (!popupProfile.classList.contains('popup_open')) {
-    nameInput.value = profileNameInput.textContent;
-    jobInput.value = profileJobInput.textContent;
-    }
     element.classList.toggle(type);
   }
-}
-
-function deleteCard() {
-  event.target.closest('.cards__item').remove();
 }
 //функция добавления карточек
 function addCard(imgValue, titleValue) {
@@ -73,20 +65,31 @@ function addCard(imgValue, titleValue) {
   cardElement.querySelector('.cards__img').alt = titleValue;
   cardElement.querySelector('.cards__title').textContent = titleValue;
   //слушатель для активизации кнопки лайка
-  cardElement.querySelector('.cards__button-like').addEventListener('click', function (evt) {
-    evt.target.classList.toggle('cards__button-like_active');
-  });
+  cardElement.querySelector('.cards__button-like').addEventListener('click', toggleLike);
   //слушатель для удаления карточки
   cardElement.querySelector('.cards__button-delete').addEventListener('click', deleteCard);
   //слушатель для открытия попапа с изображением
-  cardElement.querySelector('.cards__img').addEventListener('click', function (evt) {
-    popupPhoto.classList.toggle('popup-photo_open');
-    popupPhotoImg.src = imgValue;
-    popupPhotoImg.alt = titleValue;
-    popupPhotoTitle.textContent = titleValue;
-  });
+  cardElement.querySelector('.cards__img').addEventListener('click', openPreview(imgValue, titleValue));
   cardContainer.prepend(cardElement);
 }
+
+function deleteCard() {
+  event.target.closest('.cards__item').remove();
+}
+
+function toggleLike() {
+  event.target.classList.toggle('cards__button-like_active');
+}
+
+function openPreview(imgValue, titleValue) {
+  return function() {
+  popupPhoto.classList.toggle('popup-photo_open');
+  popupPhotoImg.src = imgValue;
+  popupPhotoImg.alt = titleValue;
+  popupPhotoTitle.textContent = titleValue;
+  }
+}
+
 //вызов функции addCard для появления изночальных карточек из массива
 initialCards.forEach(function (item) {
   addCard(item.link, item.name);
@@ -97,6 +100,12 @@ function formSubmitHandlerPlace(evt) {
 
   addCard(imgInput.value, titleInput.value);
   popupPlace.classList.toggle('popup_open');
+  formPlaceElement.reset();
+}
+
+function handleProfileFormSubmit() {
+  nameInput.value = profileNameInput.textContent;
+  jobInput.value = profileJobInput.textContent;
 }
 //функция отправки формы профиля
 function formSubmitHandlerProfile (evt) {
@@ -108,6 +117,7 @@ function formSubmitHandlerProfile (evt) {
   popupProfile.classList.toggle('popup_open');
 }
 
+buttonEdit.addEventListener('click', handleProfileFormSubmit);
 buttonEdit.addEventListener('click', popupToggle(popupProfile, 'popup_open'));
 buttonAdd.addEventListener('click', popupToggle(popupPlace, 'popup_open'));
 buttonClose.addEventListener('click', popupToggle(popupProfile, 'popup_open'));
