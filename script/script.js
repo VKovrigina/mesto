@@ -57,8 +57,8 @@ function popupToggle(element, type) {
     element.classList.toggle(type);
   }
 }
-//функция добавления карточек
-function addCard(imgValue, titleValue) {
+//функция создания карточек
+function createCard(imgValue, titleValue) {
   const cardTemplatePlace = document.querySelector('#card-template').content;
   const cardElement = cardTemplatePlace.cloneNode(true);
   cardElement.querySelector('.cards__img').src = imgValue;
@@ -70,7 +70,7 @@ function addCard(imgValue, titleValue) {
   cardElement.querySelector('.cards__button-delete').addEventListener('click', deleteCard);
   //слушатель для открытия попапа с изображением
   cardElement.querySelector('.cards__img').addEventListener('click', openPreview(imgValue, titleValue));
-  cardContainer.prepend(cardElement);
+  return cardElement;
 }
 
 function deleteCard() {
@@ -90,19 +90,20 @@ function openPreview(imgValue, titleValue) {
   }
 }
 
-//вызов функции addCard для появления изночальных карточек из массива
-initialCards.forEach(function (item) {
-  addCard(item.link, item.name);
-});
+//функция добавления карточки в начало контейнера
+const prependCard = (imgValue, titleValue) => {
+  cardContainer.prepend(createCard(imgValue, titleValue));
+}
+
 //функция отправки формы карточек
 function formSubmitHandlerPlace(evt) {
   evt.preventDefault();
 
-  addCard(imgInput.value, titleInput.value);
+  prependCard(imgInput.value, titleInput.value);
   popupPlace.classList.toggle('popup_open');
   formPlaceElement.reset();
 }
-
+//функция для появления актуальных значений в попапе профиля
 function handleProfileFormSubmit() {
   nameInput.value = profileNameInput.textContent;
   jobInput.value = profileJobInput.textContent;
@@ -116,6 +117,11 @@ function formSubmitHandlerProfile (evt) {
 
   popupProfile.classList.toggle('popup_open');
 }
+
+//вызов функции addCard для появления изночальных карточек из массива
+initialCards.forEach(function (item) {
+  prependCard(item.link, item.name);
+});
 
 buttonEdit.addEventListener('click', handleProfileFormSubmit);
 buttonEdit.addEventListener('click', popupToggle(popupProfile, 'popup_open'));
