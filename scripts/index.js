@@ -57,6 +57,29 @@ function popupToggle(element, type) {
     element.classList.toggle(type);
   }
 }
+
+const closePopup = (evt) => {
+  if(evt.target.classList.contains('popup_open') || evt.target.classList.contains('popup__close-button')){
+    evt.target.closest('.popup').classList.toggle('popup_open');
+  }
+
+  if(evt.target.classList.contains('popup-photo_open') || evt.target.classList.contains('popup-photo__button')){
+    evt.target.closest('.popup-photo').classList.toggle('popup-photo_open');
+  }
+}
+
+const closePopupEsc = (evt) => {
+  if(event.key === 'Escape') {
+    if (document.querySelector('.popup_open')) {
+      document.querySelector('.popup_open').classList.remove('popup_open');
+    }
+
+    if (document.querySelector('.popup-photo_open')) {
+      document.querySelector('.popup-photo_open').classList.remove('popup-photo_open');
+    }
+  }
+}
+
 //функция создания карточек
 function createCard(imgValue, titleValue) {
   const cardTemplatePlace = document.querySelector('#card-template').content;
@@ -126,8 +149,10 @@ initialCards.forEach(function (item) {
 buttonEdit.addEventListener('click', handleProfileFormSubmit);
 buttonEdit.addEventListener('click', popupToggle(popupProfile, 'popup_open'));
 buttonAdd.addEventListener('click', popupToggle(popupPlace, 'popup_open'));
-buttonClose.addEventListener('click', popupToggle(popupProfile, 'popup_open'));
-buttonClosePlace.addEventListener('click', popupToggle(popupPlace, 'popup_open'));
-buttonClosePhoto.addEventListener('click', popupToggle(popupPhoto, 'popup-photo_open'));
+//buttonClose.addEventListener('click', popupToggle(popupProfile, 'popup_open'));
+//buttonClosePlace.addEventListener('click', popupToggle(popupPlace, 'popup_open'));
+//buttonClosePhoto.addEventListener('click', popupToggle(popupPhoto, 'popup-photo_open'));
 formElement.addEventListener('submit', formSubmitHandlerProfile);
 formPlaceElement.addEventListener('submit', formSubmitHandlerPlace);
+document.addEventListener('click', closePopup);
+document.addEventListener('keydown', closePopupEsc);
