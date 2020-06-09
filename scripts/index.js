@@ -10,6 +10,7 @@ const popupPlace = document.querySelector('.popup_place');
 const buttonEdit = document.querySelector('.profile__edit-button');
 const buttonClose = document.querySelector('.popup__close-button');
 const buttonAdd = document.querySelector('.profile__add-button');
+const submitButton = document.querySelector('.popup__form-button');
 const buttonClosePhoto = document.querySelector('.popup-photo__button');
 const buttonClosePlace = document.querySelector('.popup__close-button_place');
 //поля форм
@@ -35,19 +36,30 @@ const formValidationOptions = {
 };
 
 //функция открытия-закрытия попапов, назначаю тип, так как два попапа сверстаны гридами, другой - флексом
-function popupToggle(element, type) {
+function popupToggle(popup, type) {
   return function() {
-    element.classList.toggle(type);
+    popup.classList.add(type);
+    if (popup.classList.contains('popup_profile')) {
+      hideInputError(nameInput, formValidationOptions.inputErrorClass);
+      hideInputError(jobInput, formValidationOptions.inputErrorClass);
+      toggleClassButton(formElement, submitButton, formValidationOptions.inactiveButtonClass);
+    }
+    if (popup.classList.contains('popup_place')) {
+      hideInputError(titleInput, formValidationOptions.inputErrorClass);
+      hideInputError(imgInput, formValidationOptions.inputErrorClass);
+      formPlaceElement.reset();
+      toggleClassButton(formPlaceElement, submitButton, formValidationOptions.inactiveButtonClass);
+    }
   }
 }
 
 const closePopup = (evt) => {
   if(evt.target.classList.contains('popup_open') || evt.target.classList.contains('popup__close-button')){
-    evt.target.closest('.popup').classList.toggle('popup_open');
+    evt.target.closest('.popup').classList.remove('popup_open');
   }
 
   if(evt.target.classList.contains('popup-photo_open') || evt.target.classList.contains('popup-photo__button')){
-    evt.target.closest('.popup-photo').classList.toggle('popup-photo_open');
+    evt.target.closest('.popup-photo').classList.remove('popup-photo_open');
   }
 }
 
@@ -107,7 +119,6 @@ function formSubmitHandlerPlace(evt) {
 
   prependCard(imgInput.value, titleInput.value);
   popupPlace.classList.toggle('popup_open');
-  formPlaceElement.reset();
 }
 //функция для появления актуальных значений в попапе профиля
 function handleProfileFormSubmit() {

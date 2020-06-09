@@ -1,6 +1,7 @@
 function enableValidation(options) {
   const formElements = Array.from(document.querySelectorAll(options.formSelector));
   formElements.forEach(formElement => {
+
     const inputElements = formElement.querySelectorAll(options.inputSelector);
     const submitButton = formElement.querySelector(options.submitButtonSelector);
 
@@ -13,9 +14,7 @@ function enableValidation(options) {
     })
 
     formElement.addEventListener('input', () => toggleClassButton(formElement, submitButton, options.inactiveButtonClass));
-    })
   })
-
 }
 
 const toggleClassButton = (formElement, submitButton, inactiveButtonClass) => {
@@ -24,17 +23,26 @@ const toggleClassButton = (formElement, submitButton, inactiveButtonClass) => {
   submitButton.classList.toggle(inactiveButtonClass, hasErrors);
 }
 
-const handleInput = (evt, errorClass) => {
+const handleInput = (evt, inputErrorClass) => {
   const input = evt.target;
-  const error = document.querySelector(`#${input.id}-error`);
   if (input.checkValidity()) {
-    error.textContent = '';
-    input.classList.remove(errorClass);
+    hideInputError(input, inputErrorClass);
   } else {
-    error.textContent = input.validationMessage;
-    input.classList.add(errorClass);
+    showInputError(input, inputErrorClass);
   }
 };
+
+const showInputError = (input, inputErrorClass) => {
+  const errorElement = document.querySelector(`#${input.id}-error`);
+  errorElement.textContent = input.validationMessage;
+  input.classList.add(inputErrorClass);
+}
+
+const hideInputError = (input, inputErrorClass) => {
+  const errorElement = document.querySelector(`#${input.id}-error`);
+  errorElement.textContent = '';
+  input.classList.remove(inputErrorClass);
+}
 
 
 
