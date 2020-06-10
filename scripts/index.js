@@ -1,6 +1,7 @@
 //спасибо большое код-ревьюеру! Хорошего вам дня :)
 //формы
 const formElement = document.querySelector('.popup__form');
+const formProfileElement = document.querySelector('.popup__form_profile');
 const formPlaceElement = document.querySelector('.popup__form_place');
 //попапы
 const popupProfile = document.querySelector('.popup');
@@ -42,7 +43,7 @@ function popupToggle(popup, type) {
     if (popup.classList.contains('popup_profile')) {
       hideInputError(nameInput, formValidationOptions.inputErrorClass);
       hideInputError(jobInput, formValidationOptions.inputErrorClass);
-      toggleClassButton(formElement, submitButton, formValidationOptions.inactiveButtonClass);
+      toggleClassButton(formProfileElement, submitButton, formValidationOptions.inactiveButtonClass);
     }
     if (popup.classList.contains('popup_place')) {
       hideInputError(titleInput, formValidationOptions.inputErrorClass);

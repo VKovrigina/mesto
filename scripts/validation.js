@@ -20,7 +20,14 @@ function enableValidation(options) {
 const toggleClassButton = (formElement, submitButton, inactiveButtonClass) => {
   const hasErrors = !formElement.checkValidity();
   submitButton.disabled = hasErrors;
-  submitButton.classList.toggle(inactiveButtonClass, hasErrors);
+  if (hasErrors) {
+    !submitButton.classList.contains(inactiveButtonClass)
+    ? submitButton.classList.add(inactiveButtonClass) : 0;
+  } else {
+    submitButton.classList.contains(inactiveButtonClass)
+    ? submitButton.classList.remove(inactiveButtonClass) : 0;
+  }
+  //submitButton.classList.toggle(inactiveButtonClass, hasErrors);
 }
 
 const handleInput = (evt, inputErrorClass) => {
