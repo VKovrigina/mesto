@@ -3,31 +3,22 @@ function enableValidation(options) {
   formElements.forEach(formElement => {
 
     const inputElements = formElement.querySelectorAll(options.inputSelector);
-    const submitButton = formElement.querySelector(options.submitButtonSelector);
 
     inputElements.forEach(input => {
       input.addEventListener('input', evt => handleInput(evt, options.inputErrorClass))
     })
 
-    formElement.addEventListener('submit', evt => {
-      evt.preventDefault();
-    })
+    formElement.addEventListener('submit', evt => preventFormDefault(evt));
 
-    formElement.addEventListener('input', () => toggleClassButton(formElement, submitButton, options.inactiveButtonClass));
+    formElement.addEventListener('input', () => toggleClassButton(formElement, options.submitButtonSelector, options.inactiveButtonClass));
   })
 }
 
-const toggleClassButton = (formElement, submitButton, inactiveButtonClass) => {
+const toggleClassButton = (formElement, submitButtonClass, inactiveButtonClass) => {
   const hasErrors = !formElement.checkValidity();
+  const submitButton = formElement.querySelector(submitButtonClass);
   submitButton.disabled = hasErrors;
-  if (hasErrors) {
-    !submitButton.classList.contains(inactiveButtonClass)
-    ? submitButton.classList.add(inactiveButtonClass) : 0;
-  } else {
-    submitButton.classList.contains(inactiveButtonClass)
-    ? submitButton.classList.remove(inactiveButtonClass) : 0;
-  }
-  //submitButton.classList.toggle(inactiveButtonClass, hasErrors);
+  submitButton.classList.toggle(inactiveButtonClass, hasErrors);
 }
 
 const handleInput = (evt, inputErrorClass) => {
@@ -49,6 +40,10 @@ const hideInputError = (input, inputErrorClass) => {
   const errorElement = document.querySelector(`#${input.id}-error`);
   errorElement.textContent = '';
   input.classList.remove(inputErrorClass);
+}
+
+const preventFormDefault = (evt) => {
+  evt.preventDefault();
 }
 
 
