@@ -1,6 +1,5 @@
 //спасибо большое код-ревьюеру! Хорошего вам дня :)
 //формы
-//const formElement = document.querySelector('.popup__form');
 const formProfileElement = document.querySelector('.popup__form_profile');
 const formPlaceElement = document.querySelector('.popup__form_place');
 //попапы
@@ -38,7 +37,7 @@ const formValidationOptions = {
 function popupOpen(popup, type) {
   return function() {
     popup.classList.add(type);
-    addListenerPopupClose(popup);
+    addListenersPopupClose(popup);
     if (popupProfile) {
       addInitialStateProfile(popupProfile);
     }
@@ -48,8 +47,7 @@ function popupOpen(popup, type) {
   }
 }
 
-const closePopup = (evt) => {
-  removeListenerPopupCloseEsc();
+const closePopup = (evt, popup) => {
   if(evt.target.classList.contains('popup_open') || evt.target.classList.contains('popup__close-button') ||  evt.target.classList.contains('popup__form-button')){
     evt.target.closest('.popup').classList.remove('popup_open');
   }
@@ -57,9 +55,10 @@ const closePopup = (evt) => {
   if(evt.target.classList.contains('popup-photo_open') || evt.target.classList.contains('popup-photo__button')){
     evt.target.closest('.popup-photo').classList.remove('popup-photo_open');
   }
+  removeListenersPopupClose(popup);
 }
 
-const closePopupEsc = (evt) => {
+const closePopupEsc = (evt, popup) => {
   if(evt.key === 'Escape') {
     if (document.querySelector('.popup_open')) {
       document.querySelector('.popup_open').classList.remove('popup_open');
@@ -68,18 +67,19 @@ const closePopupEsc = (evt) => {
     if (document.querySelector('.popup-photo_open')) {
       document.querySelector('.popup-photo_open').classList.remove('popup-photo_open');
     }
-    removeListenerPopupCloseEsc();
+    removeListenersPopupClose(popup);
   }
 }
 
-//добавление слушателя закрытия попапа
-const addListenerPopupClose = (popup) => {
-  popup.addEventListener('click', closePopup);
-  document.addEventListener('keydown', closePopupEsc);
+//добавление слушателей закрытия попапа
+const addListenersPopupClose = (popup) => {
+  popup.addEventListener('click', (evt) => closePopup(evt, popup));
+  document.addEventListener('keydown', (evt) => closePopupEsc(evt, popup));
 }
-
-const removeListenerPopupCloseEsc = () => {
-  document.removeEventListener('keydown', closePopupEsc);
+//удаление слушателей
+const removeListenersPopupClose = (popup) => {
+  document.removeEventListener('keydown', (evt) => closePopupEsc(evt, popup));
+  popup.removeEventListener('click', (evt) => closePopup(evt, popup));
 }
 
 // -------------------- Всё, что связано с карточками--------------------------
@@ -95,18 +95,27 @@ function createCard(imgValue, titleValue) {
   cardImg.src = imgValue;
   cardImg.alt = titleValue;
   cardTitle.textContent = titleValue;
-  //слушатель для активизации кнопки лайка
-  cardButtonLike.addEventListener('click', toggleLike);
-  //слушатель для удаления карточки
-  cardButtonDelete.addEventListener('click', deleteCard);
-  //слушатель для открытия попапа с изображением
-  cardImg.addEventListener('click', addPreviewValue(imgValue, titleValue));
-  cardImg.addEventListener('click', popupOpen(popupPhoto, 'popup-photo_open'));
+  addCardListeners(cardButtonDelete, cardButtonLike, cardImg, imgValue, titleValue);
   return cardElement;
 }
 
-function deleteCard() {
-  event.target.closest('.cards__item').remove();
+const addCardListeners = (buttonDelete, buttonLike, img, imgValue, titleValue) => {
+  buttonDelete.addEventListener('click', (evt) => deleteCard(evt, buttonDelete, buttonLike, img));
+  buttonLike.addEventListener('click', toggleLike);
+  img.addEventListener('click', addPreviewValue(imgValue, titleValue));
+  img.addEventListener('click', popupOpen(popupPhoto, 'popup-photo_open'));
+}
+
+const removeCardListeners = (evt, buttonDelete, buttonLike, img) => {
+    buttonDelete.removeEventListener('click', deleteCard);
+    buttonLike.removeEventListener('click', toggleLike);
+    img.removeEventListener('click', addPreviewValue);
+    img.removeEventListener('click', popupOpen);
+}
+
+function deleteCard(evt, buttonDelete, buttonLike, img) {
+  evt.target.closest('.cards__item').remove();
+  removeCardListeners(evt, buttonDelete, buttonLike, img);
 }
 
 function toggleLike() {
@@ -129,11 +138,11 @@ const prependCard = (imgValue, titleValue) => {
 // -------------------- Всё, что связано с формами--------------------------
 
 //функция отправки формы карточек
-function formSubmitHandlerPlace(evt) {
+function formSubmitHandlerPlace(evt, popup) {
   evt.preventDefault();
 
   prependCard(imgInput.value, titleInput.value);
-  closePopup(evt);
+  closePopup(evt, popup);
 }
 
 const addInitialStatePlace = (popup) => {
@@ -146,13 +155,13 @@ const addInitialStatePlace = (popup) => {
 }
 
 //функция отправки формы профиля
-function formSubmitHandlerProfile (evt) {
+function formSubmitHandlerProfile (evt, popup) {
   evt.preventDefault();
   //значения в тексте profile - из значений поля
   profileNameInput.textContent = nameInput.value;
   profileJobInput.textContent = jobInput.value;
 
-  closePopup(evt);
+  closePopup(evt, popup);
 }
 
 const addInitialStateProfile = (popup) => {
@@ -178,7 +187,7 @@ initialCards.forEach(function (item) {
 
 buttonEdit.addEventListener('click', popupOpen(popupProfile, 'popup_open'));
 buttonAdd.addEventListener('click', popupOpen(popupPlace, 'popup_open'));
-formProfileElement.addEventListener('submit', formSubmitHandlerProfile);
-formPlaceElement.addEventListener('submit', formSubmitHandlerPlace);
+formProfileElement.addEventListener('submit', (evt) => formSubmitHandlerProfile(evt, popupProfile));
+formPlaceElement.addEventListener('submit', (evt) => formSubmitHandlerPlace(evt, popupPlace));
 
 enableValidation(formValidationOptions);

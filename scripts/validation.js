@@ -8,9 +8,7 @@ function enableValidation(options) {
       input.addEventListener('input', evt => handleInput(evt, options.inputErrorClass))
     })
 
-    formElement.addEventListener('submit', evt => {
-      evt.preventDefault();
-    })
+    formElement.addEventListener('submit', evt => preventFormDefault(evt));
 
     formElement.addEventListener('input', () => toggleClassButton(formElement, options.submitButtonSelector, options.inactiveButtonClass));
   })
@@ -42,6 +40,10 @@ const hideInputError = (input, inputErrorClass) => {
   const errorElement = document.querySelector(`#${input.id}-error`);
   errorElement.textContent = '';
   input.classList.remove(inputErrorClass);
+}
+
+const preventFormDefault = (evt) => {
+  evt.preventDefault();
 }
 
 
