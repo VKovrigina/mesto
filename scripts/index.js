@@ -6,20 +6,21 @@ const formPlaceElement = document.querySelector('.popup__form_place');
 const popupProfile = document.querySelector('.popup_profile');
 const popupPhoto = document.querySelector('.popup-photo');
 const popupPlace = document.querySelector('.popup_place');
+const popupOpenClass = document.querySelector('.popup_open');
+const popupPhotoOpenClass = document.querySelector('.popup-photo_open');
 //кнопки
 const buttonEdit = document.querySelector('.profile__edit-button');
 const buttonAdd = document.querySelector('.profile__add-button');
 //поля форм
-const inputArray = Array.from(document.querySelectorAll('.popup__input'));
-let nameInput = formProfileElement.querySelector('.popup__input_type_name');
-let jobInput = formProfileElement.querySelector('.popup__input_type_job');
-let titleInput = formPlaceElement.querySelector('.popup__input_type_title');
-let imgInput = formPlaceElement.querySelector('.popup__input_type_img');
+const nameInput = formProfileElement.querySelector('.popup__input_type_name');
+const jobInput = formProfileElement.querySelector('.popup__input_type_job');
+const titleInput = formPlaceElement.querySelector('.popup__input_type_title');
+const imgInput = formPlaceElement.querySelector('.popup__input_type_img');
 //элементы, куда должны быть вставлены значения полей
-let profileNameInput = document.querySelector('.profile__name');
-let profileJobInput = document.querySelector('.profile__job');
-let popupPhotoImg = document.querySelector('.popup-photo__img');
-let popupPhotoTitle = document.querySelector('.popup-photo__title');
+const profileNameInput = document.querySelector('.profile__name');
+const profileJobInput = document.querySelector('.profile__job');
+const popupPhotoImg = document.querySelector('.popup-photo__img');
+const popupPhotoTitle = document.querySelector('.popup-photo__title');
 //контэйнер для карточек
 const cardContainer = document.querySelector('.cards');
 
