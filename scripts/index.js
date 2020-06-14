@@ -6,8 +6,9 @@ const formPlaceElement = document.querySelector('.popup__form_place');
 const popupProfile = document.querySelector('.popup_profile');
 const popupPhoto = document.querySelector('.popup-photo');
 const popupPlace = document.querySelector('.popup_place');
-const popupOpenClass = document.querySelector('.popup_open');
-const popupPhotoOpenClass = document.querySelector('.popup-photo_open');
+const popupForm = document.querySelector('.popup');
+//const popupOpenClass = document.querySelector('.popup_open');
+//const popupPhotoOpenClass = document.querySelector('.popup-photo_open');
 //кнопки
 const buttonEdit = document.querySelector('.profile__edit-button');
 const buttonAdd = document.querySelector('.profile__add-button');
@@ -39,52 +40,51 @@ function popupOpen(popup, type) {
   return function() {
     popup.classList.add(type);
     addListenersPopupClose(popup);
-    if (popupProfile) {
+    if (document.querySelector('.popup_profile') && document.querySelector('.popup_open')) {
       addInitialStateProfile(popupProfile);
     }
-    if (popupPlace) {
+    if (document.querySelector('.popup_place') && document.querySelector('.popup_open')) {
       addInitialStatePlace(popupPlace);
     }
   }
 }
 
-const closePopup = (evt, popup) => {
-  if(evt.target.classList.contains('popup_open') || evt.target.classList.contains('popup__close-button') ||  evt.target.classList.contains('popup__form-button')){
-    evt.target.closest('.popup').classList.remove('popup_open');
+const closePopup = (popup) => {
+  if (document.querySelector('.popup_open')) {
+    popup.classList.remove('popup_open');
+  }
+  if (document.querySelector('.popup-photo_open')) {
+    popup.classList.remove('popup-photo_open');
   }
 
-  if(evt.target.classList.contains('popup-photo_open') || evt.target.classList.contains('popup-photo__button')){
-    evt.target.closest('.popup-photo').classList.remove('popup-photo_open');
-  }
   removeListenersPopupClose(popup);
 }
 
-const closePopupEsc = (evt, popup) => {
-  if(evt.key === 'Escape') {
-    if (document.querySelector('.popup_open')) {
-      document.querySelector('.popup_open').classList.remove('popup_open');
-    }
+const closePopupClick = (evt) => {
+  if(evt.target.classList.contains('popup_open') || evt.target.classList.contains('popup__close-button') ||
+  evt.target.classList.contains('popup-photo_open') || evt.target.classList.contains('popup-photo__button')) {
+    closePopup(document.querySelector('.popup_open') || document.querySelector('.popup-photo_open'));
+  }
+}
 
-    if (document.querySelector('.popup-photo_open')) {
-      document.querySelector('.popup-photo_open').classList.remove('popup-photo_open');
-    }
-    removeListenersPopupClose(popup);
+const closePopupEsc = (evt) => {
+  if(evt.key === 'Escape') {
+    closePopup(document.querySelector('.popup_open') || document.querySelector('.popup-photo_open'));
   }
 }
 
 //добавление слушателей закрытия попапа
 const addListenersPopupClose = (popup) => {
-  popup.addEventListener('click', (evt) => closePopup(evt, popup));
-  document.addEventListener('keydown', (evt) => closePopupEsc(evt, popup));
+  popup.addEventListener('click', closePopupClick);
+  document.addEventListener('keydown', closePopupEsc);
 }
 //удаление слушателей
 const removeListenersPopupClose = (popup) => {
-  document.removeEventListener('keydown', (evt) => closePopupEsc(evt, popup));
-  popup.removeEventListener('click', (evt) => closePopup(evt, popup));
+  document.removeEventListener('keydown', closePopupEsc);
+  popup.removeEventListener('click', closePopupClick);
 }
 
 // -------------------- Всё, что связано с карточками--------------------------
-
 //функция создания карточек
 function createCard(imgValue, titleValue) {
   const cardTemplatePlace = document.querySelector('#card-template').content;
@@ -143,7 +143,7 @@ function formSubmitHandlerPlace(evt, popup) {
   evt.preventDefault();
 
   prependCard(imgInput.value, titleInput.value);
-  closePopup(evt, popup);
+  closePopup(popup, 'popup_open');
 }
 
 const addInitialStatePlace = (popup) => {
@@ -162,7 +162,7 @@ function formSubmitHandlerProfile (evt, popup) {
   profileNameInput.textContent = nameInput.value;
   profileJobInput.textContent = jobInput.value;
 
-  closePopup(evt, popup);
+  closePopup(popup, 'popup_open');
 }
 
 const addInitialStateProfile = (popup) => {
