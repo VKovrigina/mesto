@@ -4,7 +4,7 @@ const formProfileElement = document.querySelector('.popup__form_profile');
 const formPlaceElement = document.querySelector('.popup__form_place');
 //попапы
 const popupProfile = document.querySelector('.popup_profile');
-const popupPhoto = document.querySelector('.popup_photo');//TODO
+const popupPhoto = document.querySelector('.popup_photo');
 const popupPlace = document.querySelector('.popup_place');
 //кнопки
 const buttonEdit = document.querySelector('.profile__edit-button');
@@ -17,8 +17,8 @@ const imgInput = formPlaceElement.querySelector('.popup__input_type_img');
 //элементы, куда должны быть вставлены значения полей
 const profileNameInput = document.querySelector('.profile__name');
 const profileJobInput = document.querySelector('.profile__job');
-const popupPhotoImg = document.querySelector('.popup__img');//TODO
-const popupPhotoTitle = document.querySelector('.popup__photo-title');//TODO
+const popupPhotoImg = document.querySelector('.popup__img');
+const popupPhotoTitle = document.querySelector('.popup__photo-title');
 //контэйнер для карточек
 const cardContainer = document.querySelector('.cards');
 
@@ -95,7 +95,7 @@ const addCardListeners = (buttonDelete, buttonLike, img, imgValue, titleValue) =
   buttonDelete.addEventListener('click', deleteCard);
   buttonLike.addEventListener('click', toggleLike);
   img.addEventListener('click', addPreviewValue(imgValue, titleValue));
-  img.addEventListener('click', popupOpen(popupPhoto)); //TODO
+  img.addEventListener('click', popupOpen(popupPhoto));
 };
 
 const deleteCard = (evt) => {

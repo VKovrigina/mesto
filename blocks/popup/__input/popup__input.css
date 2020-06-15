@@ -1,8 +1,3 @@
-@import url(./_type/popup__input_type_job.css);
-@import url(./_type/popup__input_type_name.css);
-@import url(./_type/popup__input_type_img.css);
-@import url(./_type/popup__input_type_title.css);
-
 .popup__input {
   width: 83%;
   border: none;
