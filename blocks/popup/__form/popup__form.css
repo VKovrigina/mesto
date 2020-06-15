@@ -1,3 +1,6 @@
+@import url(./_profile/popup__form_profile.css);
+@import url(./_place/popup__form_place.css);
+
 .popup__form {
   max-width: 430px;
   min-width: 430px;

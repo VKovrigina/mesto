@@ -37,10 +37,10 @@ function popupOpen(popup) {
   return function() {
     popup.classList.add('popup_open');
     addListenersPopupClose(popup);
-    if (document.querySelector('.popup_profile') && document.querySelector('.root_popup-open')) {
+    if (document.querySelector('.popup_profile') && document.querySelector('.popup_open')) {
       addInitialStateProfile(popupProfile);
     }
-    if (document.querySelector('.popup_place') && document.querySelector('.root_popup-open')) {
+    if (document.querySelector('.popup_place') && document.querySelector('.popup_open')) {
       addInitialStatePlace(popupPlace);
     }
   };
@@ -148,12 +148,6 @@ function formSubmitHandlerProfile (evt, popup) {
   closePopup(popup);
 };
 
-//функция для появления актуальных значений в попапе профиля
-function handleProfileFormSubmit() {
-  nameInput.value = profileNameInput.textContent;
-  jobInput.value = profileJobInput.textContent;
-};
-
 const addInitialStateProfile = (popup) => {
   const arrayInput = Array.from(popup.querySelectorAll('.popup__input'));
   arrayInput.forEach(input => {
@@ -161,6 +155,12 @@ const addInitialStateProfile = (popup) => {
   })
   handleProfileFormSubmit();
   toggleClassButton(formProfileElement, formValidationOptions.submitButtonSelector, formValidationOptions.inactiveButtonClass);
+};
+
+//функция для появления актуальных значений в попапе профиля
+const handleProfileFormSubmit = () => {
+  nameInput.value = profileNameInput.textContent;
+  jobInput.value = profileJobInput.textContent;
 };
 
 //вызов функции addCard для появления изночальных карточек из массива
