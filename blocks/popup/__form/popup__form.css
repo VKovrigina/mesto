@@ -1,8 +1,7 @@
-@import url(./_profile/popup__form_profile.css);
-@import url(./_place/popup__form_place.css);
 
 .popup__form {
   max-width: 430px;
+  min-width: 430px;
   width: 100%;
   background: #fff;
   box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
@@ -19,6 +18,7 @@
 @media screen and (max-width: 600px) {
   .popup__form {
     max-width: 240px;
+    min-width: 240px;
     margin: 0;
   }
 }
