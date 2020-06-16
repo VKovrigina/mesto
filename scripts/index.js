@@ -37,10 +37,10 @@ function popupOpen(popup) {
   return function() {
     popup.classList.add('popup_open');
     addListenersPopupClose(popup);
-    if (document.querySelector('.popup_profile') && document.querySelector('.popup_open')) {
+    if (document.querySelector('.popup_profile.popup_open')) {
       addInitialStateProfile(popupProfile);
     }
-    if (document.querySelector('.popup_place') && document.querySelector('.popup_open')) {
+    if (document.querySelector('.popup_place.popup_open')) {
       addInitialStatePlace(popupPlace);
     }
   };
