@@ -1,4 +1,4 @@
-const initialCards = [
+export const initialCards = [
   {
       name: 'Камчатский край',
       link: 'https://images.unsplash.com/photo-1535427284698-c8e68a1eb910?ixlib=rb-1.2.1&auto=format&fit=crop&w=1349&q=80'

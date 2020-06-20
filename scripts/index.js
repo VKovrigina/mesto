@@ -1,4 +1,6 @@
 //спасибо большое код-ревьюеру! Хорошего вам дня :)
+import { initialCards } from './array.js';
+import { Card } from './Card.js';
 //формы
 const formProfileElement = document.querySelector('.popup__form_profile');
 const formPlaceElement = document.querySelector('.popup__form_place');
@@ -77,47 +79,51 @@ const removeListenersPopupClose = (popup) => {
 
 // -------------------- Всё, что связано с карточками--------------------------
 //функция создания карточек
-function createCard(imgValue, titleValue) {
-  const cardTemplatePlace = document.querySelector('#card-template').content;
-  const cardElement = cardTemplatePlace.cloneNode(true);
-  const cardImg = cardElement.querySelector('.cards__img');
-  const cardTitle = cardElement.querySelector('.cards__title');
-  const cardButtonLike = cardElement.querySelector('.cards__button-like');
-  const cardButtonDelete = cardElement.querySelector('.cards__button-delete');
-  cardImg.src = imgValue;
-  cardImg.alt = titleValue;
-  cardTitle.textContent = titleValue;
-  addCardListeners(cardButtonDelete, cardButtonLike, cardImg, imgValue, titleValue);
-  return cardElement;
-};
+// function createCard(imgValue, titleValue) {
+//   const cardTemplatePlace = document.querySelector('#card-template').content;
+//   const cardElement = cardTemplatePlace.cloneNode(true);
+//   const cardImg = cardElement.querySelector('.cards__img');
+//   const cardTitle = cardElement.querySelector('.cards__title');
+//   const cardButtonLike = cardElement.querySelector('.cards__button-like');
+//   const cardButtonDelete = cardElement.querySelector('.cards__button-delete');
+//   cardImg.src = imgValue;
+//   cardImg.alt = titleValue;
+//   cardTitle.textContent = titleValue;
+//   addCardListeners(cardButtonDelete, cardButtonLike, cardImg, imgValue, titleValue);
+//   return cardElement;
+// };
 
-const addCardListeners = (buttonDelete, buttonLike, img, imgValue, titleValue) => {
-  buttonDelete.addEventListener('click', deleteCard);
-  buttonLike.addEventListener('click', toggleLike);
-  img.addEventListener('click', addPreviewValue(imgValue, titleValue));
-  img.addEventListener('click', popupOpen(popupPhoto));
-};
+// const addCardListeners = (buttonDelete, buttonLike, img, imgValue, titleValue) => {
+//   buttonDelete.addEventListener('click', deleteCard);
+//   buttonLike.addEventListener('click', toggleLike);
+//   img.addEventListener('click', addPreviewValue(imgValue, titleValue));
+//   img.addEventListener('click', popupOpen(popupPhoto));
+// };
 
-const deleteCard = (evt) => {
-  evt.target.closest('.cards__item').remove();
-};
+// const deleteCard = (evt) => {
+//   evt.target.closest('.cards__item').remove();
+// };
 
-const toggleLike = (evt) => {
-  evt.target.classList.toggle('cards__button-like_active');
-};
+// const toggleLike = (evt) => {
+//   evt.target.classList.toggle('cards__button-like_active');
+// };
 
-const addPreviewValue = (imgValue, titleValue) => {
-  return function() {
-  popupPhotoImg.src = imgValue;
-  popupPhotoImg.alt = titleValue;
-  popupPhotoTitle.textContent = titleValue;
-  };
-};
+// const addPreviewValue = (imgValue, titleValue) => {
+//   return function() {
+//   popupPhotoImg.src = imgValue;
+//   popupPhotoImg.alt = titleValue;
+//   popupPhotoTitle.textContent = titleValue;
+//   };
+// };
+
+// const prependCard = (imgValue, titleValue) => {
+//   cardContainer.prepend(createCard(imgValue, titleValue));
+// };
 
 //функция добавления карточки в начало контейнера
-const prependCard = (imgValue, titleValue) => {
-  cardContainer.prepend(createCard(imgValue, titleValue));
-};
+// const prependCard = (element) => {
+//   cardContainer.prepend(element);
+// };
 
 // -------------------- Всё, что связано с формами--------------------------
 
@@ -164,9 +170,19 @@ const handleProfileFormSubmit = () => {
 };
 
 //вызов функции addCard для появления изночальных карточек из массива
-initialCards.forEach(function (item) {
-  prependCard(item.link, item.name);
-});
+// initialCards.forEach(function (item) {
+//   prependCard(item.link, item.name);
+// });
+
+// const prependCard = (imgValue, titleValue) => {
+//   cardContainer.prepend(createCard(imgValue, titleValue));
+// };
+
+initialCards.forEach((item) => {
+  const card = new Card(item.link, item.name, popupOpen, '#card-template');
+  const cardElement = card.generateCard();
+  cardContainer.prepend(cardElement);
+})
 
 
 buttonEdit.addEventListener('click', popupOpen(popupProfile));
