@@ -1,4 +1,7 @@
 //спасибо большое код-ревьюеру! Хорошего вам дня :)
+import { initialCards } from './array.js';
+import { Card } from './Card.js';
+import { FormValidator } from './FormValidator.js';
 //формы
 const formProfileElement = document.querySelector('.popup__form_profile');
 const formPlaceElement = document.querySelector('.popup__form_place');
@@ -17,18 +20,14 @@ const imgInput = formPlaceElement.querySelector('.popup__input_type_img');
 //элементы, куда должны быть вставлены значения полей
 const profileNameInput = document.querySelector('.profile__name');
 const profileJobInput = document.querySelector('.profile__job');
-const popupPhotoImg = document.querySelector('.popup__img');
-const popupPhotoTitle = document.querySelector('.popup__photo-title');
 //контэйнер для карточек
 const cardContainer = document.querySelector('.cards');
 
 const formValidationOptions = {
-  formSelector: '.popup__form',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__form-button',
   inactiveButtonClass: 'popup__form-button_inactive',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
+  inputErrorClass: 'popup__input_type_error'
 };
 // -------------------- Всё, что связано с открытием-закрытием попапов--------------------------
 
@@ -76,47 +75,12 @@ const removeListenersPopupClose = (popup) => {
 };
 
 // -------------------- Всё, что связано с карточками--------------------------
-//функция создания карточек
-function createCard(imgValue, titleValue) {
-  const cardTemplatePlace = document.querySelector('#card-template').content;
-  const cardElement = cardTemplatePlace.cloneNode(true);
-  const cardImg = cardElement.querySelector('.cards__img');
-  const cardTitle = cardElement.querySelector('.cards__title');
-  const cardButtonLike = cardElement.querySelector('.cards__button-like');
-  const cardButtonDelete = cardElement.querySelector('.cards__button-delete');
-  cardImg.src = imgValue;
-  cardImg.alt = titleValue;
-  cardTitle.textContent = titleValue;
-  addCardListeners(cardButtonDelete, cardButtonLike, cardImg, imgValue, titleValue);
-  return cardElement;
-};
 
-const addCardListeners = (buttonDelete, buttonLike, img, imgValue, titleValue) => {
-  buttonDelete.addEventListener('click', deleteCard);
-  buttonLike.addEventListener('click', toggleLike);
-  img.addEventListener('click', addPreviewValue(imgValue, titleValue));
-  img.addEventListener('click', popupOpen(popupPhoto));
-};
-
-const deleteCard = (evt) => {
-  evt.target.closest('.cards__item').remove();
-};
-
-const toggleLike = (evt) => {
-  evt.target.classList.toggle('cards__button-like_active');
-};
-
-const addPreviewValue = (imgValue, titleValue) => {
-  return function() {
-  popupPhotoImg.src = imgValue;
-  popupPhotoImg.alt = titleValue;
-  popupPhotoTitle.textContent = titleValue;
-  };
-};
-
-//функция добавления карточки в начало контейнера
-const prependCard = (imgValue, titleValue) => {
-  cardContainer.prepend(createCard(imgValue, titleValue));
+//функция добавления в начало контейнера карточки, созданной с помощью класса Card
+const addPrependCard = (imgValue, titleValue) => {
+  const card = new Card(imgValue, titleValue, popupOpen(popupPhoto), '#card-template');
+  const cardElement = card.generateCard();
+  cardContainer.prepend(cardElement);
 };
 
 // -------------------- Всё, что связано с формами--------------------------
@@ -125,17 +89,17 @@ const prependCard = (imgValue, titleValue) => {
 function formSubmitHandlerPlace(evt, popup) {
   evt.preventDefault();
 
-  prependCard(imgInput.value, titleInput.value);
+  addPrependCard(imgInput.value, titleInput.value);
   closePopup(popup);
 };
 
 const addInitialStatePlace = (popup) => {
   const arrayInput = Array.from(popup.querySelectorAll('.popup__input'));
   arrayInput.forEach(input => {
-    hideInputError(input, formValidationOptions.inputErrorClass);
+    placeFormValid.hideInputError(input, formValidationOptions.inputErrorClass);
   })
   formPlaceElement.reset();
-  toggleClassButton(formPlaceElement, formValidationOptions.submitButtonSelector, formValidationOptions.inactiveButtonClass);
+  placeFormValid.toggleClassButton(formPlaceElement, formValidationOptions.submitButtonSelector, formValidationOptions.inactiveButtonClass);
 };
 
 //функция отправки формы профиля
@@ -151,10 +115,10 @@ function formSubmitHandlerProfile (evt, popup) {
 const addInitialStateProfile = (popup) => {
   const arrayInput = Array.from(popup.querySelectorAll('.popup__input'));
   arrayInput.forEach(input => {
-    hideInputError(input, formValidationOptions.inputErrorClass);
+    profileFormValid.hideInputError(input, formValidationOptions.inputErrorClass);
   })
   handleProfileFormSubmit();
-  toggleClassButton(formProfileElement, formValidationOptions.submitButtonSelector, formValidationOptions.inactiveButtonClass);
+  profileFormValid.toggleClassButton(formProfileElement, formValidationOptions.submitButtonSelector, formValidationOptions.inactiveButtonClass);
 };
 
 //функция для появления актуальных значений в попапе профиля
@@ -163,15 +127,19 @@ const handleProfileFormSubmit = () => {
   jobInput.value = profileJobInput.textContent;
 };
 
-//вызов функции addCard для появления изночальных карточек из массива
-initialCards.forEach(function (item) {
-  prependCard(item.link, item.name);
+//вызов функции addPrependCard для появления изночальных карточек из массива
+initialCards.forEach((item) => {
+  addPrependCard(item.link, item.name);
 });
 
+const profileFormValid = new FormValidator(formValidationOptions, formProfileElement);
+profileFormValid.enableValidation();
+
+const placeFormValid = new FormValidator(formValidationOptions, formPlaceElement);
+placeFormValid.enableValidation();
 
 buttonEdit.addEventListener('click', popupOpen(popupProfile));
 buttonAdd.addEventListener('click', popupOpen(popupPlace));
 formProfileElement.addEventListener('submit', (evt) => formSubmitHandlerProfile(evt, popupProfile));
 formPlaceElement.addEventListener('submit', (evt) => formSubmitHandlerPlace(evt, popupPlace));
 
-enableValidation(formValidationOptions);
