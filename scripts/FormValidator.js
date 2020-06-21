@@ -47,5 +47,5 @@ export class FormValidator {
     const errorElement = document.querySelector(`#${input.id}-error`);
     errorElement.textContent = '';
     input.classList.remove(inputErrorClass);
-  }
+  };
 };
