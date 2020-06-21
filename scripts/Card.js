@@ -4,11 +4,8 @@
 // содержит приватные методы для каждого обработчика;
 // содержит один публичный метод, который возвращает полностью работоспособный и наполненный данными элемент карточки.
 // Для каждой карточки создайте экземпляр класса Card.
-const cardImg = document.querySelector('.cards__img');
-const cardTitle = document.querySelector('.cards__title');
-const cardButtonLike = document.querySelector('.cards__button-like');
-const cardButtonDelete = document.querySelector('.cards__button-delete');
-
+const popupPhotoImg = document.querySelector('.popup__img');
+const  popupPhotoTitle = document.querySelector('.popup__photo-title');
 export class Card {
   constructor(imgValue, titleValue, popupOpen, cardSelector) {//принимает linkImg Title и селектор её template-элемента '#card-template' + функцию открытия
     this._imgValue = imgValue;
@@ -31,19 +28,50 @@ export class Card {
   generateCard() {
     //возвратить полностью работоспособный и
     //наполненный данными элемент карточки
-    this._element = this._getTemplate(); //добавить шаблон
-    this._element.querySelector('.cards__img').src = this._imgValue;
-    this._element.querySelector('.cards__img').alt = this._titleValue;
-    this._element.querySelector('.cards__title').textContent = this._titleValue;
+    this._element = this._getTemplate();//добавить шаблон
+    const cardImg = this._element.querySelector('.cards__img');
+    const cardTitle = this._element.querySelector('.cards__title');
+    const cardButtonLike = this._element.querySelector('.cards__button-like');
+    const cardButtonDelete = this._element.querySelector('.cards__button-delete');
+    cardImg.src = this._imgValue;
+    cardImg.alt = this._titleValue;
+    cardTitle.textContent = this._titleValue;
+    this._setEventListeners(cardButtonDelete, cardButtonLike, cardImg, this._imgValue, this._titleValue);
     return this._element;
   }
 
-  _setEventListeners() {
+  _setEventListeners(buttonDelete, buttonLike, img, imgValue, titleValue) {
     //повесить слушатели
+    //слушатель на кнопку лайка
+    buttonLike.addEventListener('click', () => {
+      this._toggleLike(buttonLike);
+    })
+
+    img.addEventListener('click', () => {
+      this._addPreviewValue(imgValue, titleValue);
+    })
+
+    img.addEventListener('click', () => {
+      this._popupOpen();
+    })
+
+    buttonDelete.addEventListener('click', () => {
+      this._deleteCard();
+    })
   }
 
-  //метод _toggleLike
-  //метод _addPreviewValue
-  //метод _deleteCard
+  _toggleLike(buttonLike) {
+    return buttonLike.classList.toggle('cards__button-like_active');
+  }
 
+  _addPreviewValue(imgValue, titleValue) {
+      popupPhotoImg.src = imgValue;
+      popupPhotoImg.alt = titleValue;
+      popupPhotoTitle.textContent = titleValue;
+  }
+
+  _deleteCard() {
+    this._element.remove();
+    this._element = null;
+  }
 }

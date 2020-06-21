@@ -19,8 +19,6 @@ const imgInput = formPlaceElement.querySelector('.popup__input_type_img');
 //элементы, куда должны быть вставлены значения полей
 const profileNameInput = document.querySelector('.profile__name');
 const profileJobInput = document.querySelector('.profile__job');
-const popupPhotoImg = document.querySelector('.popup__img');
-const popupPhotoTitle = document.querySelector('.popup__photo-title');
 //контэйнер для карточек
 const cardContainer = document.querySelector('.cards');
 
@@ -125,13 +123,19 @@ const removeListenersPopupClose = (popup) => {
 //   cardContainer.prepend(element);
 // };
 
+const addPrependCard = (imgValue, titleValue) => {
+  const card = new Card(imgValue, titleValue, popupOpen(popupPhoto), '#card-template');
+  const cardElement = card.generateCard();
+  cardContainer.prepend(cardElement);
+};
+
 // -------------------- Всё, что связано с формами--------------------------
 
 //функция отправки формы карточек
 function formSubmitHandlerPlace(evt, popup) {
   evt.preventDefault();
 
-  prependCard(imgInput.value, titleInput.value);
+  addPrependCard(imgInput.value, titleInput.value);
   closePopup(popup);
 };
 
@@ -178,11 +182,17 @@ const handleProfileFormSubmit = () => {
 //   cardContainer.prepend(createCard(imgValue, titleValue));
 // };
 
+
 initialCards.forEach((item) => {
-  const card = new Card(item.link, item.name, popupOpen, '#card-template');
-  const cardElement = card.generateCard();
-  cardContainer.prepend(cardElement);
-})
+  addPrependCard(item.link, item.name);
+});
+
+
+// initialCards.forEach((item) => {
+//   const card = new Card(item.link, item.name, popupOpen(popupPhoto), '#card-template');
+//   const cardElement = card.generateCard();
+//   cardContainer.prepend(cardElement);
+// })
 
 
 buttonEdit.addEventListener('click', popupOpen(popupProfile));
