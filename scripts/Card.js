@@ -26,23 +26,17 @@ export class Card {
     cardImg.src = this._imgValue;
     cardImg.alt = this._titleValue;
     cardTitle.textContent = this._titleValue;
-    this._setEventListeners(cardButtonDelete, cardButtonLike, cardImg, this._imgValue, this._titleValue);
+    this._setEventListeners(cardButtonDelete, cardButtonLike, cardImg);
     return this._element;
   };
 
-  _setEventListeners(buttonDelete, buttonLike, img, imgValue, titleValue) {
+  _setEventListeners(buttonDelete, buttonLike, img) {
 
     buttonLike.addEventListener('click', () => {
       this._toggleLike(buttonLike);
     })
 
-    img.addEventListener('click', () => {
-      this._addPreviewValue(imgValue, titleValue);
-    })
-
-    img.addEventListener('click', () => {
-      this._popupOpen();
-    })
+    img.addEventListener('click', () => [this._addPreviewValue(), this._popupOpen()])
 
     buttonDelete.addEventListener('click', () => {
       this._deleteCard();
@@ -53,10 +47,10 @@ export class Card {
     return buttonLike.classList.toggle('cards__button-like_active');
   };
 
-  _addPreviewValue(imgValue, titleValue) {
-      popupPhotoImg.src = imgValue;
-      popupPhotoImg.alt = titleValue;
-      popupPhotoTitle.textContent = titleValue;
+  _addPreviewValue() {
+      popupPhotoImg.src = this._imgValue;
+      popupPhotoImg.alt = this._titleValue;
+      popupPhotoTitle.textContent = this._titleValue;
   };
 
   _deleteCard() {
