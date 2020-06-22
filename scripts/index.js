@@ -7,7 +7,6 @@ const formProfileElement = document.querySelector('.popup__form_profile');
 const formPlaceElement = document.querySelector('.popup__form_place');
 //попапы
 const popupProfile = document.querySelector('.popup_profile');
-const popupPhoto = document.querySelector('.popup_photo');
 const popupPlace = document.querySelector('.popup_place');
 //кнопки
 const buttonEdit = document.querySelector('.profile__edit-button');
@@ -33,10 +32,8 @@ const formValidationOptions = {
 
 //функция открытия попапов, назначаю тип, так как два попапа сверстаны гридами, другой - флексом
 function popupOpen(popup) {
-  return function() {
     popup.classList.add('popup_open');
     addListenersPopupClose(popup);
-  }
 };
 
 const closePopup = (popup) => {
@@ -72,7 +69,7 @@ const removeListenersPopupClose = (popup) => {
 
 //функция добавления в начало контейнера карточки, созданной с помощью класса Card
 const addPrependCard = (imgValue, titleValue) => {
-  const card = new Card(imgValue, titleValue, popupOpen(popupPhoto), '#card-template');
+  const card = new Card(imgValue, titleValue, popupOpen, '#card-template');
   const cardElement = card.generateCard();
   cardContainer.prepend(cardElement);
 };
@@ -87,15 +84,14 @@ function formSubmitHandlerPlace(evt, popup) {
   closePopup(popup);
 };
 
-const addInitialStatePlace = (popup) => {
-  return function() {
-    const arrayInput = Array.from(popup.querySelectorAll('.popup__input'));
+const togglePlace = () => {
+    const arrayInput = Array.from(popupPlace.querySelectorAll('.popup__input'));
     arrayInput.forEach(input => {
       placeFormValid.hideInputError(input, formValidationOptions.inputErrorClass);
     })
     formPlaceElement.reset();
     placeFormValid.toggleClassButton(formPlaceElement, formValidationOptions.submitButtonSelector, formValidationOptions.inactiveButtonClass);
-  }
+    popupOpen(popupPlace);
 };
 
 //функция отправки формы профиля
@@ -108,15 +104,14 @@ function formSubmitHandlerProfile (evt, popup) {
   closePopup(popup);
 };
 
-const addInitialStateProfile = (popup) => {
-  return function() {
-    const arrayInput = Array.from(popup.querySelectorAll('.popup__input'));
+const toggleProfile = () => {
+    const arrayInput = Array.from(popupProfile.querySelectorAll('.popup__input'));
     arrayInput.forEach(input => {
       profileFormValid.hideInputError(input, formValidationOptions.inputErrorClass);
     })
     addActualMeaningProfileForm();
     profileFormValid.toggleClassButton(formProfileElement, formValidationOptions.submitButtonSelector, formValidationOptions.inactiveButtonClass);
-  }
+    popupOpen(popupProfile);
 };
 
 //функция для появления актуальных значений в попапе профиля
@@ -136,10 +131,7 @@ profileFormValid.enableValidation();
 const placeFormValid = new FormValidator(formValidationOptions, formPlaceElement);
 placeFormValid.enableValidation();
 
-buttonEdit.addEventListener('click', popupOpen(popupProfile));
-buttonEdit.addEventListener('click', addInitialStateProfile(popupProfile));
-buttonAdd.addEventListener('click', popupOpen(popupPlace));
-buttonAdd.addEventListener('click', addInitialStatePlace(popupPlace));
+buttonEdit.addEventListener('click', toggleProfile);
+buttonAdd.addEventListener('click', togglePlace);
 formProfileElement.addEventListener('submit', (evt) => formSubmitHandlerProfile(evt, popupProfile));
 formPlaceElement.addEventListener('submit', (evt) => formSubmitHandlerPlace(evt, popupPlace));
-

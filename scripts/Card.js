@@ -1,5 +1,7 @@
 const popupPhotoImg = document.querySelector('.popup__img');
 const  popupPhotoTitle = document.querySelector('.popup__photo-title');
+const popupPhoto = document.querySelector('.popup_photo');
+
 export class Card {
   constructor(imgValue, titleValue, popupOpen, cardSelector) {
     this._imgValue = imgValue;
@@ -36,7 +38,7 @@ export class Card {
       this._toggleLike(buttonLike);
     })
 
-    img.addEventListener('click', () => [this._addPreviewValue(), this._popupOpen()])
+    img.addEventListener('click', () => [this._addPreviewValue(), this._popupOpen(popupPhoto)])
 
     buttonDelete.addEventListener('click', () => {
       this._deleteCard();
