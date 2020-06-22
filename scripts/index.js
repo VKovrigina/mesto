@@ -36,13 +36,7 @@ function popupOpen(popup) {
   return function() {
     popup.classList.add('popup_open');
     addListenersPopupClose(popup);
-    if (document.querySelector('.popup_profile.popup_open')) {
-      addInitialStateProfile(popupProfile);
-    }
-    if (document.querySelector('.popup_place.popup_open')) {
-      addInitialStatePlace(popupPlace);
-    }
-  };
+  }
 };
 
 const closePopup = (popup) => {
@@ -94,12 +88,14 @@ function formSubmitHandlerPlace(evt, popup) {
 };
 
 const addInitialStatePlace = (popup) => {
-  const arrayInput = Array.from(popup.querySelectorAll('.popup__input'));
-  arrayInput.forEach(input => {
-    placeFormValid.hideInputError(input, formValidationOptions.inputErrorClass);
-  })
-  formPlaceElement.reset();
-  placeFormValid.toggleClassButton(formPlaceElement, formValidationOptions.submitButtonSelector, formValidationOptions.inactiveButtonClass);
+  return function() {
+    const arrayInput = Array.from(popup.querySelectorAll('.popup__input'));
+    arrayInput.forEach(input => {
+      placeFormValid.hideInputError(input, formValidationOptions.inputErrorClass);
+    })
+    formPlaceElement.reset();
+    placeFormValid.toggleClassButton(formPlaceElement, formValidationOptions.submitButtonSelector, formValidationOptions.inactiveButtonClass);
+  }
 };
 
 //функция отправки формы профиля
@@ -113,16 +109,18 @@ function formSubmitHandlerProfile (evt, popup) {
 };
 
 const addInitialStateProfile = (popup) => {
-  const arrayInput = Array.from(popup.querySelectorAll('.popup__input'));
-  arrayInput.forEach(input => {
-    profileFormValid.hideInputError(input, formValidationOptions.inputErrorClass);
-  })
-  handleProfileFormSubmit();
-  profileFormValid.toggleClassButton(formProfileElement, formValidationOptions.submitButtonSelector, formValidationOptions.inactiveButtonClass);
+  return function() {
+    const arrayInput = Array.from(popup.querySelectorAll('.popup__input'));
+    arrayInput.forEach(input => {
+      profileFormValid.hideInputError(input, formValidationOptions.inputErrorClass);
+    })
+    addActualMeaningProfileForm();
+    profileFormValid.toggleClassButton(formProfileElement, formValidationOptions.submitButtonSelector, formValidationOptions.inactiveButtonClass);
+  }
 };
 
 //функция для появления актуальных значений в попапе профиля
-const handleProfileFormSubmit = () => {
+const addActualMeaningProfileForm = () => {
   nameInput.value = profileNameInput.textContent;
   jobInput.value = profileJobInput.textContent;
 };
@@ -139,7 +137,9 @@ const placeFormValid = new FormValidator(formValidationOptions, formPlaceElement
 placeFormValid.enableValidation();
 
 buttonEdit.addEventListener('click', popupOpen(popupProfile));
+buttonEdit.addEventListener('click', addInitialStateProfile(popupProfile));
 buttonAdd.addEventListener('click', popupOpen(popupPlace));
+buttonAdd.addEventListener('click', addInitialStatePlace(popupPlace));
 formProfileElement.addEventListener('submit', (evt) => formSubmitHandlerProfile(evt, popupProfile));
 formPlaceElement.addEventListener('submit', (evt) => formSubmitHandlerPlace(evt, popupPlace));
 
