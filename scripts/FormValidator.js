@@ -38,13 +38,13 @@ export class FormValidator {
   };
 
   _showInputError(input, inputErrorClass) {
-    const errorElement = document.querySelector(`#${input.id}-error`);
+    const errorElement = this._form.querySelector(`#${input.id}-error`);
     errorElement.textContent = input.validationMessage;
     input.classList.add(inputErrorClass);
   };
   //Делаю метод публичным, так как потребуется при открытии попапа с формой
   hideInputError(input, inputErrorClass) {
-    const errorElement = document.querySelector(`#${input.id}-error`);
+    const errorElement = this._form.querySelector(`#${input.id}-error`);
     errorElement.textContent = '';
     input.classList.remove(inputErrorClass);
   };
