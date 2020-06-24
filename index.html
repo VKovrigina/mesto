@@ -12,7 +12,7 @@
     <header class="header">
       <img class ="header__logo" src="./images/logo.svg" alt="Логотип сайта Место Россия.">
     </header>
-
+    <!--./images/jacques-yves-cousteau.jpg-->
     <main class="content">
 
       <section class="profile">
@@ -73,6 +73,18 @@
             maxlength="200"
           required>
           <span class="popup__input-error" id="job-input-error"></span>
+
+          <h3 class="popup__title popup__title_avatar">Обновить аватар</h3>
+
+          <input
+            type="url"
+            name="profile-avatar-photo"
+            class="popup__input popup__input_type_avatar-photo"
+            id="avatar-photo-input"
+            placeholder="https://..."
+            >
+          <span class="popup__input-error" id="avatar-photo-input-error"></span>
+
 
           <button class="popup__form-button" type="submit">Сохранить</button>
         </form>

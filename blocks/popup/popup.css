@@ -8,6 +8,7 @@
 @import url(./__container/popup__container.css);
 @import url(./__img/popup__img.css);
 @import url(./__photo-title/popup__photo-title.css);
+@import url(./__title/_avatar/popup__title_avatar.css);
 @import url(./_photo/popup_photo.css);
 @import url(./_form/popup_form.css);
 

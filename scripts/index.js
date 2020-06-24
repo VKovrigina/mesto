@@ -8,6 +8,8 @@ const formPlaceElement = document.querySelector('.popup__form_place');
 //попапы
 const popupProfile = document.querySelector('.popup_profile');
 const popupPlace = document.querySelector('.popup_place');
+const popupPhoto = document.querySelector('.popup_photo');
+const popupPhotoImg = document.querySelector('.popup__img');
 //кнопки
 const buttonEdit = document.querySelector('.profile__edit-button');
 const buttonAdd = document.querySelector('.profile__add-button');
@@ -16,9 +18,11 @@ const nameInput = formProfileElement.querySelector('.popup__input_type_name');
 const jobInput = formProfileElement.querySelector('.popup__input_type_job');
 const titleInput = formPlaceElement.querySelector('.popup__input_type_title');
 const imgInput = formPlaceElement.querySelector('.popup__input_type_img');
+const avatarInput = formProfileElement.querySelector('.popup__input_type_avatar-photo');
 //элементы, куда должны быть вставлены значения полей
 const profileNameInput = document.querySelector('.profile__name');
 const profileJobInput = document.querySelector('.profile__job');
+const profileAvatarPhoto = document.querySelector('.profile__avatar');
 //контэйнер для карточек
 const cardContainer = document.querySelector('.cards');
 
@@ -65,6 +69,11 @@ const removeListenersPopupClose = (popup) => {
   popup.removeEventListener('click', closePopupClick);
 };
 
+const popupAvatarOpen = () => {
+  popupOpen(popupPhoto);
+  popupPhotoImg.src = avatarInput.value;
+}
+
 // -------------------- Всё, что связано с карточками--------------------------
 
 //функция добавления в начало контейнера карточки, созданной с помощью класса Card
@@ -100,6 +109,7 @@ function formSubmitHandlerProfile (evt, popup) {
   //значения в тексте profile - из значений поля
   profileNameInput.textContent = nameInput.value;
   profileJobInput.textContent = jobInput.value;
+  profileAvatarPhoto.src = avatarInput.value;
 
   closePopup(popup);
 };
@@ -118,6 +128,7 @@ const toggleProfile = () => {
 const addActualMeaningProfileForm = () => {
   nameInput.value = profileNameInput.textContent;
   jobInput.value = profileJobInput.textContent;
+  avatarInput.value = profileAvatarPhoto.src;
 };
 
 //вызов функции addPrependCard для появления изночальных карточек из массива
@@ -135,3 +146,4 @@ buttonEdit.addEventListener('click', toggleProfile);
 buttonAdd.addEventListener('click', togglePlace);
 formProfileElement.addEventListener('submit', (evt) => formSubmitHandlerProfile(evt, popupProfile));
 formPlaceElement.addEventListener('submit', (evt) => formSubmitHandlerPlace(evt, popupPlace));
+profileAvatarPhoto.addEventListener('click', popupAvatarOpen);
