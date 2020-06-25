@@ -8,9 +8,10 @@
   border-radius: 50%;
   object-fit: cover;
   overflow: hidden;
-  background-image: url(../../../images/jacques-yves-cousteau.jpg);
+  background-image: url(../../../images/profile-photo.jpg);
   background-position: center;
-  background-size: contain;
-  font-size: 18px;
-  line-height: 20px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  font-size: 0;
+  line-height: 0;
 }
