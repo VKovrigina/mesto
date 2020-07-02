@@ -17,6 +17,7 @@ import {
   formValidationOptions } from '../utils/constants.js';
 import { Card } from '../components/Card.js';
 import { FormValidator } from '../components/FormValidator.js';
+import Section from '../components/Section.js';
 
 // -------------------- Всё, что связано с открытием-закрытием попапов--------------------------
 
@@ -64,6 +65,11 @@ const addPrependCard = (imgValue, titleValue) => {
   cardContainer.prepend(cardElement);
 };
 
+//вызов функции addPrependCard для появления изночальных карточек из массива
+initialCards.forEach((item) => {
+  addPrependCard(item.link, item.name);
+});
+
 // -------------------- Всё, что связано с формами--------------------------
 
 //функция отправки формы карточек
@@ -110,10 +116,10 @@ const addActualMeaningProfileForm = () => {
   jobInput.value = profileJobInput.textContent;
 };
 
-//вызов функции addPrependCard для появления изночальных карточек из массива
-initialCards.forEach((item) => {
-  addPrependCard(item.link, item.name);
-});
+// //вызов функции addPrependCard для появления изночальных карточек из массива
+// initialCards.forEach((item) => {
+//   addPrependCard(item.link, item.name);
+// });
 
 const profileFormValid = new FormValidator(formValidationOptions, formProfileElement);
 profileFormValid.enableValidation();
