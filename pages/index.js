@@ -86,9 +86,10 @@ const togglePlace = () => {
       placeFormValid.hideInputError(input);
     })
     formPlaceElement.reset();
-    placeFormValid.toggleClassButton(formPlaceElement, formValidationOptions.submitButtonSelector, formValidationOptions.inactiveButtonClass);
+    placeFormValid.toggleClassButton();
     popupOpen(popupPlace);
 };
+//formPlaceElement, formValidationOptions.submitButtonSelector, formValidationOptions.inactiveButtonClass
 
 //функция отправки формы профиля
 function formSubmitHandlerProfile (evt, popup) {
@@ -106,7 +107,7 @@ const toggleProfile = () => {
       profileFormValid.hideInputError(input);
     })
     addActualMeaningProfileForm();
-    profileFormValid.toggleClassButton(formProfileElement, formValidationOptions.submitButtonSelector, formValidationOptions.inactiveButtonClass);
+    profileFormValid.toggleClassButton();
     popupOpen(popupProfile);
 };
 
