@@ -83,7 +83,7 @@ function formSubmitHandlerPlace(evt, popup) {
 const togglePlace = () => {
     const arrayInput = Array.from(popupPlace.querySelectorAll('.popup__input'));
     arrayInput.forEach(input => {
-      placeFormValid.hideInputError(input, formValidationOptions.inputErrorClass);
+      placeFormValid.hideInputError(input);
     })
     formPlaceElement.reset();
     placeFormValid.toggleClassButton(formPlaceElement, formValidationOptions.submitButtonSelector, formValidationOptions.inactiveButtonClass);
@@ -103,7 +103,7 @@ function formSubmitHandlerProfile (evt, popup) {
 const toggleProfile = () => {
     const arrayInput = Array.from(popupProfile.querySelectorAll('.popup__input'));
     arrayInput.forEach(input => {
-      profileFormValid.hideInputError(input, formValidationOptions.inputErrorClass);
+      profileFormValid.hideInputError(input);
     })
     addActualMeaningProfileForm();
     profileFormValid.toggleClassButton(formProfileElement, formValidationOptions.submitButtonSelector, formValidationOptions.inactiveButtonClass);

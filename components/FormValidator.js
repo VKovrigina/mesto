@@ -12,7 +12,7 @@ export class FormValidator {
     this._form.addEventListener('input', () => this.toggleClassButton(this._form, this._submitButtonSelector, this._inactiveButtonClass));
     const inputElements = this._form.querySelectorAll(this._inputSelector);
     inputElements.forEach(input => {
-      input.addEventListener('input', evt => this._handleInput(evt, this._inputErrorClass));
+      input.addEventListener('input', () => this._handleInput(input));
     });
   };
 
@@ -28,24 +28,23 @@ export class FormValidator {
     submitButton.classList.toggle(inactiveButtonClass, hasErrors);
   };
   //проверка валидности инпутов - отображение/скрытие ошибок
-  _handleInput(evt, inputErrorClass) {
-    const input = evt.target;
+  _handleInput(input) {
     if (input.checkValidity()) {
-      this.hideInputError(input, inputErrorClass);
+      this.hideInputError(input);
     } else {
-      this._showInputError(input, inputErrorClass);
+      this._showInputError(input);
     }
   };
 
-  _showInputError(input, inputErrorClass) {
+  _showInputError(input) {
     const errorElement = this._form.querySelector(`#${input.id}-error`);
     errorElement.textContent = input.validationMessage;
-    input.classList.add(inputErrorClass);
+    input.classList.add(this._inputErrorClass);
   };
   //Делаю метод публичным, так как потребуется при открытии попапа с формой
-  hideInputError(input, inputErrorClass) {
+  hideInputError(input) {
     const errorElement = this._form.querySelector(`#${input.id}-error`);
     errorElement.textContent = '';
-    input.classList.remove(inputErrorClass);
+    input.classList.remove(this._inputErrorClass);
   };
 };
