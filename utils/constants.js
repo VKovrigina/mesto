@@ -43,7 +43,7 @@ export const imgInput = formPlaceElement.querySelector('.popup__input_type_img')
 export const profileNameInput = document.querySelector('.profile__name');
 export const profileJobInput = document.querySelector('.profile__job');
 //контэйнер для карточек
-export const cardContainer = document.querySelector('.cards');
+export const cardContainer = '.cards';
 
 export const formValidationOptions = {
   inputSelector: '.popup__input',

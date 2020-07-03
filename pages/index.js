@@ -57,7 +57,17 @@ const removeListenersPopupClose = (popup) => {
 };
 
 // -------------------- Всё, что связано с карточками--------------------------
-
+const cardsList = new Section({
+  items: initialCards,
+  renderer: (item) => {
+    const card = new Card(item.link, item.name, popupOpen, '#card-template');
+    const cardElement = card.generateCard();
+    cardsList.addItem(cardElement);
+  },
+},
+cardContainer
+);
+cardsList.renderItems();
 //функция добавления в начало контейнера карточки, созданной с помощью класса Card
 const addPrependCard = (imgValue, titleValue) => {
   const card = new Card(imgValue, titleValue, popupOpen, '#card-template');
@@ -66,9 +76,9 @@ const addPrependCard = (imgValue, titleValue) => {
 };
 
 //вызов функции addPrependCard для появления изночальных карточек из массива
-initialCards.forEach((item) => {
-  addPrependCard(item.link, item.name);
-});
+// initialCards.forEach((item) => {
+//   addPrependCard(item.link, item.name);
+// });
 
 // -------------------- Всё, что связано с формами--------------------------
 
