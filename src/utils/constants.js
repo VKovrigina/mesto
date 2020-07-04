@@ -45,6 +45,10 @@ export const profileJobInput = document.querySelector('.profile__job');
 //контэйнер для карточек
 export const cardContainer = '.cards';
 
+export const popupPhotoImg = document.querySelector('.popup__img');
+export const popupPhotoTitle = document.querySelector('.popup__photo-title');
+export const popupPhotoSelector = document.querySelector('.popup_photo');
+
 export const formValidationOptions = {
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__form-button',

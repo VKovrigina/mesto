@@ -14,53 +14,62 @@ import {
   profileNameInput,
   profileJobInput,
   cardContainer,
-  formValidationOptions } from '../utils/constants.js';
+  formValidationOptions,
+  popupPhotoSelector } from '../utils/constants.js';
 import { Card } from '../components/Card.js';
 import { FormValidator } from '../components/FormValidator.js';
 import Section from '../components/Section.js';
+import PopupWithImage from '../components/PopupWithImage.js';
 
 // -------------------- Всё, что связано с открытием-закрытием попапов--------------------------
 
 //функция открытия попапов, назначаю тип, так как два попапа сверстаны гридами, другой - флексом
-function popupOpen(popup) {
-    popup.classList.add('popup_open');
-    addListenersPopupClose(popup);
-};
+// function popupOpen(popup) {
+//     popup.classList.add('popup_open');
+//     addListenersPopupClose(popup);
+// };
 
-const closePopup = (popup) => {
-  popup.classList.remove('popup_open');
+// const closePopup = (popup) => {
+//   popup.classList.remove('popup_open');
 
-  removeListenersPopupClose(popup);
-};
+//   removeListenersPopupClose(popup);
+// };
 
-const closePopupClick = (evt) => {
-  if(evt.target.classList.contains('popup_open') || evt.target.classList.contains('popup__close-button')) {
-    closePopup(document.querySelector('.popup_open'));
-  }
-};
+// const closePopupClick = (evt) => {
+//   if(evt.target.classList.contains('popup_open') || evt.target.classList.contains('popup__close-button')) {
+//     closePopup(document.querySelector('.popup_open'));
+//   }
+// };
 
-const closePopupEsc = (evt) => {
-  if(evt.key === 'Escape') {
-    closePopup(document.querySelector('.popup_open'));
-  }
-};
+// const closePopupEsc = (evt) => {
+//   if(evt.key === 'Escape') {
+//     closePopup(document.querySelector('.popup_open'));
+//   }
+// };
 
-//добавление слушателей закрытия попапа
-const addListenersPopupClose = (popup) => {
-  popup.addEventListener('click', closePopupClick);
-  document.addEventListener('keydown', closePopupEsc);
-};
-//удаление слушателей
-const removeListenersPopupClose = (popup) => {
-  document.removeEventListener('keydown', closePopupEsc);
-  popup.removeEventListener('click', closePopupClick);
-};
+// //добавление слушателей закрытия попапа
+// const addListenersPopupClose = (popup) => {
+//   popup.addEventListener('click', closePopupClick);
+//   document.addEventListener('keydown', closePopupEsc);
+// };
+// //удаление слушателей
+// const removeListenersPopupClose = (popup) => {
+//   document.removeEventListener('keydown', closePopupEsc);
+//   popup.removeEventListener('click', closePopupClick);
+// };
 
 // -------------------- Всё, что связано с карточками--------------------------
+const popupPhoto = new PopupWithImage(popupPhotoSelector);
+
 const cardsList = new Section({
   items: initialCards,
   renderer: (item) => {
-    const card = new Card(item.link, item.name, popupOpen, '#card-template');
+    const card = new Card(
+      item.link, item.name,
+      { handleCardClick: () => {
+        popupPhoto.open(item.link, item.name);
+      } },
+      '#card-template');
     const cardElement = card.generateCard();
     cardsList.addItem(cardElement);
   },
@@ -68,6 +77,21 @@ const cardsList = new Section({
 cardContainer
 );
 cardsList.renderItems();
+
+// const cardsList = new Section({
+//   items: initialCards,
+//   renderer: (item) => {
+//     const card = new Card(item.link, item.name, popupOpen, '#card-template');
+//     const cardElement = card.generateCard();
+//     cardsList.addItem(cardElement);
+//   },
+// },
+// cardContainer
+// );
+// cardsList.renderItems();
+
+
+
 //функция добавления в начало контейнера карточки, созданной с помощью класса Card
 const addPrependCard = (imgValue, titleValue) => {
   const card = new Card(imgValue, titleValue, popupOpen, '#card-template');
