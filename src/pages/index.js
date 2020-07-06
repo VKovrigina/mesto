@@ -89,11 +89,6 @@ const addPrependCard = (imgValue, titleValue) => {
   cardContainer.prepend(cardElement);
 };
 
-//вызов функции addPrependCard для появления изночальных карточек из массива
-// initialCards.forEach((item) => {
-//   addPrependCard(item.link, item.name);
-// });
-
 // -------------------- Всё, что связано с формами--------------------------
 
 const popupProfile = new PopupWithForm(popupProfileSelector, {
@@ -116,15 +111,10 @@ function formSubmitHandlerPlace(evt, popup) {
 };
 
 const togglePlace = () => {
-    const arrayInput = Array.from(popupPlace.querySelectorAll('.popup__input'));
-    arrayInput.forEach(input => {
-      placeFormValid.hideInputError(input);
-    })
-    formPlaceElement.reset();
-    placeFormValid.toggleClassButton();
-    popupOpen(popupPlace);
+  formPlaceElement.reset();
+  placeFormValid.resetErrors();
+  popupOpen(popupPlace);
 };
-//formPlaceElement, formValidationOptions.submitButtonSelector, formValidationOptions.inactiveButtonClass
 
 //функция отправки формы профиля
 function formSubmitHandlerProfile (evt, popup) {
@@ -137,13 +127,9 @@ function formSubmitHandlerProfile (evt, popup) {
 };
 
 const toggleProfile = () => {
-    const arrayInput = Array.from(popupProfile.querySelectorAll('.popup__input'));
-    arrayInput.forEach(input => {
-      profileFormValid.hideInputError(input);
-    })
-    addActualMeaningProfileForm();
-    profileFormValid.toggleClassButton();
-    popupOpen(popupProfile);
+  addActualMeaningProfileForm();
+  profileFormValid.resetErrors();
+  popupOpen(popupProfile);
 };
 
 //функция для появления актуальных значений в попапе профиля
@@ -151,11 +137,6 @@ const addActualMeaningProfileForm = () => {
   nameInput.value = profileNameInput.textContent;
   jobInput.value = profileJobInput.textContent;
 };
-
-// //вызов функции addPrependCard для появления изночальных карточек из массива
-// initialCards.forEach((item) => {
-//   addPrependCard(item.link, item.name);
-// });
 
 const profileFormValid = new FormValidator(formValidationOptions, formProfileElement);
 profileFormValid.enableValidation();
