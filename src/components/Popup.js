@@ -1,6 +1,7 @@
 export default class Popup {
   constructor(popup) {
     this._popup = popup;
+    //сохраняю контекст функций
     this._handleClickClose = this._handleClickClose.bind(this);
     this._handleEscClose = this._handleEscClose.bind(this);
   }
@@ -16,14 +17,12 @@ export default class Popup {
   }
 
   _handleEscClose(evt) {
-    console.log(evt);
     if(evt.key === 'Escape') {
       this.close();
     }
   }
 
   _handleClickClose(evt) {
-    console.log(evt);
     if(evt.target.classList.contains('popup_open') || evt.target.classList.contains('popup__close-button')) {
       this.close();
     }

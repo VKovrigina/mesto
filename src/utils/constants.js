@@ -29,8 +29,9 @@ export const initialCards = [
 export const formProfileElement = document.querySelector('.popup__form_profile');
 export const formPlaceElement = document.querySelector('.popup__form_place');
 //попапы
-export const popupProfile = document.querySelector('.popup_profile');
-export const popupPlace = document.querySelector('.popup_place');
+export const popupProfileSelector = document.querySelector('.popup_profile');
+export const popupPlaceSelector = document.querySelector('.popup_place');
+export const popupPhotoSelector = document.querySelector('.popup_photo');
 //кнопки
 export const buttonEdit = document.querySelector('.profile__edit-button');
 export const buttonAdd = document.querySelector('.profile__add-button');
@@ -47,7 +48,6 @@ export const cardContainer = '.cards';
 
 export const popupPhotoImg = document.querySelector('.popup__img');
 export const popupPhotoTitle = document.querySelector('.popup__photo-title');
-export const popupPhotoSelector = document.querySelector('.popup_photo');
 
 export const formValidationOptions = {
   inputSelector: '.popup__input',

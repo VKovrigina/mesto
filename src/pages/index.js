@@ -1,10 +1,11 @@
 //спасибо большое код-ревьюеру! Хорошего вам дня :)
+//изменила на селектор попапы
 import {
   initialCards,
   formProfileElement,
   formPlaceElement,
-  popupProfile,
-  popupPlace,
+  popupProfileSelector,
+  popupPlaceSelector,
   buttonEdit,
   buttonAdd,
   nameInput,
@@ -20,6 +21,8 @@ import { Card } from '../components/Card.js';
 import { FormValidator } from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js';
 
 // -------------------- Всё, что связано с открытием-закрытием попапов--------------------------
 
@@ -78,19 +81,6 @@ cardContainer
 );
 cardsList.renderItems();
 
-// const cardsList = new Section({
-//   items: initialCards,
-//   renderer: (item) => {
-//     const card = new Card(item.link, item.name, popupOpen, '#card-template');
-//     const cardElement = card.generateCard();
-//     cardsList.addItem(cardElement);
-//   },
-// },
-// cardContainer
-// );
-// cardsList.renderItems();
-
-
 
 //функция добавления в начало контейнера карточки, созданной с помощью класса Card
 const addPrependCard = (imgValue, titleValue) => {
@@ -105,6 +95,17 @@ const addPrependCard = (imgValue, titleValue) => {
 // });
 
 // -------------------- Всё, что связано с формами--------------------------
+
+const popupProfile = new PopupWithForm(popupProfileSelector, {
+  submitForm: () => {
+
+  }
+});
+const popupPlace = new PopupWithForm(popupPlaceSelector, {
+  submitForm: () => {
+
+  }
+});
 
 //функция отправки формы карточек
 function formSubmitHandlerPlace(evt, popup) {
@@ -162,7 +163,7 @@ profileFormValid.enableValidation();
 const placeFormValid = new FormValidator(formValidationOptions, formPlaceElement);
 placeFormValid.enableValidation();
 
-buttonEdit.addEventListener('click', toggleProfile);
-buttonAdd.addEventListener('click', togglePlace);
+buttonEdit.addEventListener('click', () => popupProfile.open());
+buttonAdd.addEventListener('click', () => popupPlace.open());
 formProfileElement.addEventListener('submit', (evt) => formSubmitHandlerProfile(evt, popupProfile));
 formPlaceElement.addEventListener('submit', (evt) => formSubmitHandlerPlace(evt, popupPlace));
