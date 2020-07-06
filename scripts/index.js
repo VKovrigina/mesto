@@ -94,13 +94,9 @@ function formSubmitHandlerPlace(evt, popup) {
 };
 
 const togglePlace = () => {
-    const arrayInput = Array.from(popupPlace.querySelectorAll('.popup__input'));
-    arrayInput.forEach(input => {
-      placeFormValid.hideInputError(input, formValidationOptions.inputErrorClass);
-    })
-    formPlaceElement.reset();
-    placeFormValid.toggleClassButton(formPlaceElement, formValidationOptions.submitButtonSelector, formValidationOptions.inactiveButtonClass);
-    popupOpen(popupPlace);
+  formPlaceElement.reset();
+  placeFormValid.resetErrors();
+  popupOpen(popupPlace);
 };
 
 //функция отправки формы профиля
@@ -115,13 +111,9 @@ function formSubmitHandlerProfile (evt, popup) {
 };
 
 const toggleProfile = () => {
-    const arrayInput = Array.from(popupProfile.querySelectorAll('.popup__input'));
-    arrayInput.forEach(input => {
-      profileFormValid.hideInputError(input, formValidationOptions.inputErrorClass);
-    })
-    addActualMeaningProfileForm();
-    profileFormValid.toggleClassButton(formProfileElement, formValidationOptions.submitButtonSelector, formValidationOptions.inactiveButtonClass);
-    popupOpen(popupProfile);
+  addActualMeaningProfileForm();
+  profileFormValid.resetErrors();
+  popupOpen(popupProfile);
 };
 
 //функция для появления актуальных значений в попапе профиля
