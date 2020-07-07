@@ -9,7 +9,7 @@ export default class PopupWithImage extends Popup {
     super(popup);
   }
 
-  open(imgValue, titleValue) {
+  open(titleValue, imgValue) {
     super.open();
     popupPhotoImg.src = imgValue;
     popupPhotoImg.alt = titleValue;

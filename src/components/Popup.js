@@ -4,16 +4,17 @@ export default class Popup {
     //сохраняю контекст функций
     this._handleClickClose = this._handleClickClose.bind(this);
     this._handleEscClose = this._handleEscClose.bind(this);
+    this.setEventListeners = this.setEventListeners.bind(this);
   }
 
   open() {
     this._popup.classList.add('popup_open');
-    this.setEventListeners();
+    document.addEventListener('keydown', this._handleEscClose);
   }
 
   close() {
     this._popup.classList.remove('popup_open');
-    this.removeEventListeners();
+    document.removeEventListener('keydown', this._handleEscClose);
   }
 
   _handleEscClose(evt) {
@@ -30,11 +31,5 @@ export default class Popup {
 
   setEventListeners() {
     this._popup.addEventListener('click', this._handleClickClose);
-    document.addEventListener('keydown', this._handleEscClose);
-  }
-
-  removeEventListeners() {
-    this._popup.removeEventListener('click', this._handleClickClose);
-    document.removeEventListener('keydown', this._handleEscClose);
   }
 }

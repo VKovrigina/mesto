@@ -1,5 +1,4 @@
 
-
 export class FormValidator {
   constructor(options, form) {
     this._form = form;
