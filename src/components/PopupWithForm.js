@@ -34,7 +34,7 @@ export default class PopupWithForm extends Popup {
   }
 
   open() {
-    super.open();
     this._resetErrors();
+    super.open();
   }
 }

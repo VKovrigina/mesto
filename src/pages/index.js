@@ -24,8 +24,6 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 
-// -------------------- Всё, что связано с открытием-закрытием попапов--------------------------
-
 // -------------------- Всё, что связано с карточками--------------------------
 const popupPhoto = new PopupWithImage(popupPhotoSelector);
 popupPhoto.setEventListeners();
@@ -48,19 +46,21 @@ cardContainer
 //отрисовка первоначальных карточек
 cardsList.renderItems();
 
+// ---------------------------Валидация----------------------------------------
 
-//функция добавления в начало контейнера карточки, созданной с помощью класса Card
-// const addPrependCard = (imgValue, titleValue) => {
-//   const card = new Card(imgValue, titleValue, popupOpen, '#card-template');
-//   const cardElement = card.generateCard();
-//   cardContainer.prepend(cardElement);
-// };
+const profileFormValid = new FormValidator(formValidationOptions, formProfileElement);
+profileFormValid.enableValidation();
+
+const placeFormValid = new FormValidator(formValidationOptions, formPlaceElement);
+placeFormValid.enableValidation();
+
 
 // -------------------- Всё, что связано с формами--------------------------
+const userInfo = new UserInfo('.profile__name', '.profile__job');
 
 const popupProfile = new PopupWithForm(popupProfileSelector, 
-  () => {
-
+  (values) => {
+    userInfo.setUserInfo(values);
   },
  () => {
   profileFormValid.resetErrors();
@@ -81,50 +81,18 @@ const popupPlace = new PopupWithForm(popupPlaceSelector,
   //функция сброса ошибок
   () => {
     placeFormValid.resetErrors();
-  } );
+  });
 popupPlace.setEventListeners();
 
-// //функция отправки формы карточек
-// function formSubmitHandlerPlace(evt, popup) {
-//   evt.preventDefault();
+const addActualMeaningProfileForm = () => {
+  const {name, job} = userInfo.getUserInfo();
+  nameInput.value = name;
+  jobInput.value = job;
+}
 
-//   addPrependCard(imgInput.value, titleInput.value);
-//   closePopup(popup);
-// };
 
-// const togglePlace = () => {
-//   formPlaceElement.reset();
-//   placeFormValid.resetErrors();
-//   popupOpen(popupPlace);
-// };
-
-// //функция отправки формы профиля
-// function formSubmitHandlerProfile (evt, popup) {
-//   evt.preventDefault();
-//   //значения в тексте profile - из значений поля
-//   profileNameInput.textContent = nameInput.value;
-//   profileJobInput.textContent = jobInput.value;
-
-//   closePopup(popup);
-// };
-
-// const toggleProfile = () => {
-//   addActualMeaningProfileForm();
-//   profileFormValid.resetErrors();
-//   popupOpen(popupProfile);
-// };
-
-// //функция для появления актуальных значений в попапе профиля
-// const addActualMeaningProfileForm = () => {
-//   nameInput.value = profileNameInput.textContent;
-//   jobInput.value = profileJobInput.textContent;
-// };
-
-const profileFormValid = new FormValidator(formValidationOptions, formProfileElement);
-profileFormValid.enableValidation();
-
-const placeFormValid = new FormValidator(formValidationOptions, formPlaceElement);
-placeFormValid.enableValidation();
-
-buttonEdit.addEventListener('click', () => popupProfile.open());
+buttonEdit.addEventListener('click', () => {
+  popupProfile.open();
+  addActualMeaningProfileForm();
+});
 buttonAdd.addEventListener('click', () => popupPlace.open());
