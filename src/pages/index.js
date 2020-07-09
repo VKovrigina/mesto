@@ -58,31 +58,30 @@ cardsList.renderItems();
 
 // -------------------- Всё, что связано с формами--------------------------
 
-const popupProfile = new PopupWithForm(popupProfileSelector, {
-  submitForm() {
+const popupProfile = new PopupWithForm(popupProfileSelector, 
+  () => {
 
-  }
-},
-{ resetErrors() {
+  },
+ () => {
   profileFormValid.resetErrors();
-}});
+});
 popupProfile.setEventListeners();
 
 const popupPlace = new PopupWithForm(popupPlaceSelector,
-  { submitForm() {
-      const newCard = new Card (this._formValues.title, this._formValues.img,
-      { handleCardClick: (titleValue, imgValue) => {
-          popupPhoto.open(titleValue, imgValue);
-        }
-      }, '#card-template');
-      console.log(this._formValues);
-      const newCardElement = newCard.generateCard();
-      cardsList.addItem(newCardElement);
-    }
+  //функция при сабмите
+  ({title, img}) => {
+    const newCard = new Card (title, img,
+    { handleCardClick: (titleValue, imgValue) => {
+        popupPhoto.open(titleValue, imgValue);
+      }
+    }, '#card-template');
+    const newCardElement = newCard.generateCard();
+    cardsList.addItem(newCardElement);
   },
-{ resetErrors() {
-  placeFormValid.resetErrors();
-} });
+  //функция сброса ошибок
+  () => {
+    placeFormValid.resetErrors();
+  } );
 popupPlace.setEventListeners();
 
 // //функция отправки формы карточек

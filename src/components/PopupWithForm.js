@@ -1,7 +1,7 @@
 import Popup from './Popup.js';
 
 export default class PopupWithForm extends Popup {
-  constructor(popup, { submitForm }, { resetErrors }) {
+  constructor(popup, submitForm, resetErrors) {
     super(popup);
     this._submitForm = submitForm;
     this._resetErrors = resetErrors;
@@ -13,6 +13,7 @@ export default class PopupWithForm extends Popup {
     this._inputList.forEach(input =>
       this._formValues[input.name] = input.value
     );
+    console.log(this._formValues);
     return this._formValues;
   }
   // Метод setEventListeners класса PopupWithForm

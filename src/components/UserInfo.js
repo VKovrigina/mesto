@@ -7,16 +7,18 @@
 //и добавляет их на страницу.
 
 export default class UserInfo {
-  constructor(name, job) {
-    this._name = name;
-    this._job = job;
+  //нашли элементы по селектору
+  constructor(nameSelector, jobSelector) {
+    this._nameSelector = document.querySelector(nameSelector);
+    this._jobSelector = document.querySelector(jobSelector);
   }
-
+//который возвращает объект с данными пользователя.при открытии.
   getUserInfo() {
     nameInput.value = profileNameInput.textContent;
     jobInput.value = profileJobInput.textContent;
   }
-
+//который принимает новые данные пользователя
+//и добавляет их на страницу.
   setUserInfo() {
     profileNameInput.textContent = nameInput.value;
     profileJobInput.textContent = jobInput.value;
