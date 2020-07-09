@@ -1,5 +1,4 @@
 //спасибо большое код-ревьюеру! Хорошего вам дня :)
-//изменила на селектор попапы
 import {
   initialCards,
   formProfileElement,
@@ -10,10 +9,6 @@ import {
   buttonAdd,
   nameInput,
   jobInput,
-  titleInput,
-  imgInput,
-  profileNameInput,
-  profileJobInput,
   cardContainer,
   formValidationOptions,
   popupPhotoSelector } from '../utils/constants.js';
@@ -92,7 +87,7 @@ const addActualMeaningProfileForm = () => {
 
 
 buttonEdit.addEventListener('click', () => {
-  popupProfile.open();
   addActualMeaningProfileForm();
+  popupProfile.open();
 });
 buttonAdd.addEventListener('click', () => popupPlace.open());

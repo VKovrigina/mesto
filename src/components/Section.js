@@ -12,6 +12,5 @@ export default class Section {
   //вставляет элемент в контейнер
   addItem(element) {
     this._container.append(element);
-    console.log(`я вызвался`);
   }
 }

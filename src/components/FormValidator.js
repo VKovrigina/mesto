@@ -6,9 +6,6 @@ export class FormValidator {
     this._submitButtonSelector = options.submitButtonSelector;
     this._inactiveButtonClass = options.inactiveButtonClass;
     this._inputErrorClass = options.inputErrorClass;
-    //привязка контекста для вызова в resetErrors
-    this._toggleClassButton = this._toggleClassButton.bind(this);
-    this._hideInputError = this._hideInputError.bind(this);
   };
 
   enableValidation() {

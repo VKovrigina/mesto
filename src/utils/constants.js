@@ -1,27 +1,27 @@
 export const initialCards = [
   {
-      name: 'Камчатский край',
-      link: 'https://images.unsplash.com/photo-1535427284698-c8e68a1eb910?ixlib=rb-1.2.1&auto=format&fit=crop&w=1349&q=80'
+      name: 'Чехия',
+      link: 'https://images.unsplash.com/photo-1592838464221-a7268248a9ec?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=701&q=80'
   },
   {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+      name: 'Китай',
+      link: 'https://images.unsplash.com/photo-1567266565446-d9c40ccf59a4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80'
   },
   {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+      name: 'Чили',
+      link: 'https://images.unsplash.com/photo-1593053272490-e0ed6d6a42c5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80'
   },
   {
-      name: 'Москва',
-      link: 'https://images.unsplash.com/photo-1567449303183-ae0d6ed1498e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80'
+      name: 'Норвегия',
+      link: 'https://images.unsplash.com/photo-1588263271366-8232e713ff00?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=80'
   },
   {
-      name: 'Санкт-Петербург',
-      link: 'https://images.unsplash.com/photo-1587507565493-817f6ceb1244?ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80'
+      name: 'Англия',
+      link: 'https://images.unsplash.com/photo-1469047616593-20bed1f1217a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDAxNX0&auto=format&fit=crop&w=333&q=80'
   },
   {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+      name: 'Бельгия',
+      link: 'https://images.unsplash.com/photo-1572895854902-117546c75fb3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1100&q=80'
   }
 ];
 
@@ -38,11 +38,6 @@ export const buttonAdd = document.querySelector('.profile__add-button');
 //поля форм
 export const nameInput = formProfileElement.querySelector('.popup__input_type_name');
 export const jobInput = formProfileElement.querySelector('.popup__input_type_job');
-export const titleInput = formPlaceElement.querySelector('.popup__input_type_title');
-export const imgInput = formPlaceElement.querySelector('.popup__input_type_img');
-//элементы, куда должны быть вставлены значения полей
-export const profileNameInput = document.querySelector('.profile__name');
-export const profileJobInput = document.querySelector('.profile__job');
 //контэйнер для карточек
 export const cardContainer = '.cards';
 

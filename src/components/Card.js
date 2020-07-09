@@ -1,6 +1,3 @@
-// const popupPhotoImg = document.querySelector('.popup__img');
-// const  popupPhotoTitle = document.querySelector('.popup__photo-title');
-// const popupPhoto = document.querySelector('.popup_photo');
 
 export class Card {
   constructor(titleValue, imgValue, {handleCardClick}, cardSelector) {
