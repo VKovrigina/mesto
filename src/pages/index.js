@@ -18,6 +18,7 @@ import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
+import './index.css';
 
 // -------------------- Всё, что связано с карточками--------------------------
 const popupPhoto = new PopupWithImage(popupPhotoSelector);
@@ -53,7 +54,7 @@ placeFormValid.enableValidation();
 // -------------------- Всё, что связано с формами--------------------------
 const userInfo = new UserInfo('.profile__name', '.profile__job');
 
-const popupProfile = new PopupWithForm(popupProfileSelector, 
+const popupProfile = new PopupWithForm(popupProfileSelector,
   (values) => {
     userInfo.setUserInfo(values);
   },
