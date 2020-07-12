@@ -26,23 +26,22 @@ export const initialCards = [
 ];
 
 //формы
-export const formProfileElement = document.querySelector('.popup__form_profile');
-export const formPlaceElement = document.querySelector('.popup__form_place');
+export const formProfileSelector = '.popup__form_profile';
+export const formPlaceSelector = '.popup__form_place';
 //попапы
-export const popupProfileSelector = document.querySelector('.popup_profile');
-export const popupPlaceSelector = document.querySelector('.popup_place');
-export const popupPhotoSelector = document.querySelector('.popup_photo');
+export const popupProfileSelector = '.popup_profile';
+export const popupPlaceSelector = '.popup_place';
+export const popupPhotoSelector = '.popup_photo';
 //кнопки
-export const buttonEdit = document.querySelector('.profile__edit-button');
-export const buttonAdd = document.querySelector('.profile__add-button');
+export const buttonEditSelector = '.profile__edit-button';
+export const buttonAddSelector = '.profile__add-button';
 //поля форм
-export const nameInput = formProfileElement.querySelector('.popup__input_type_name');
-export const jobInput = formProfileElement.querySelector('.popup__input_type_job');
+export const nameInputSelector = '.popup__input_type_name';
+export const jobInputSelector = '.popup__input_type_job';
 //контэйнер для карточек
 export const cardContainer = '.cards';
-
-export const popupPhotoImg = document.querySelector('.popup__img');
-export const popupPhotoTitle = document.querySelector('.popup__photo-title');
+export const popupPhotoImgSelector = '.popup__img';
+export const popupPhotoTitleSelector = '.popup__photo-title';
 
 export const formValidationOptions = {
   inputSelector: '.popup__input',
