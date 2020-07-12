@@ -1,19 +1,20 @@
 //спасибо большое код-ревьюеру! Хорошего вам дня :)
 import {
   initialCards,
-  formProfileElement,
-  formPlaceElement,
+  formProfileSelector,
+  formPlaceSelector,
   popupProfileSelector,
   popupPlaceSelector,
-  buttonEdit,
-  buttonAdd,
-  nameInput,
-  jobInput,
+  buttonEditSelector,
+  buttonAddSelector,
+  nameInputSelector,
+  jobInputSelector,
   cardContainer,
   formValidationOptions,
   popupPhotoSelector,
-  popupPhotoImg,
-  popupPhotoTitle} from '../utils/constants.js';
+  popupPhotoImgSelector,
+  popupPhotoTitleSelector} from '../utils/constants.js';
+
 import { Card } from '../components/Card.js';
 import { FormValidator } from '../components/FormValidator.js';
 import Section from '../components/Section.js';
@@ -22,8 +23,26 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import './index.css';
 
+//формы
+const formProfileElement = document.querySelector(formProfileSelector);
+const formPlaceElement = document.querySelector(formPlaceSelector);
+//попапы
+const popupProfileElement = document.querySelector(popupProfileSelector);
+const popupPlaceElement = document.querySelector(popupPlaceSelector);
+const popupPhotoElement = document.querySelector(popupPhotoSelector);
+//кнопки
+const buttonEdit = document.querySelector(buttonEditSelector);
+const buttonAdd = document.querySelector(buttonAddSelector);
+//поля форм
+const nameInput = formProfileElement.querySelector(nameInputSelector);
+const jobInput = formProfileElement.querySelector(jobInputSelector);
+
+const popupPhotoImg = document.querySelector(popupPhotoImgSelector);
+const popupPhotoTitle = document.querySelector(popupPhotoTitleSelector);
+
+
 // -------------------- Всё, что связано с карточками--------------------------
-const popupPhoto = new PopupWithImage(popupPhotoSelector, popupPhotoImg, popupPhotoTitle);
+const popupPhoto = new PopupWithImage(popupPhotoElement, popupPhotoImg, popupPhotoTitle);
 popupPhoto.setEventListeners();
 
 const cardsList = new Section({
@@ -56,7 +75,7 @@ placeFormValid.enableValidation();
 // -------------------- Всё, что связано с формами--------------------------
 const userInfo = new UserInfo('.profile__name', '.profile__job');
 
-const popupProfile = new PopupWithForm(popupProfileSelector,
+const popupProfile = new PopupWithForm(popupProfileElement,
   (values) => {
     userInfo.setUserInfo(values);
   },
@@ -65,7 +84,7 @@ const popupProfile = new PopupWithForm(popupProfileSelector,
 });
 popupProfile.setEventListeners();
 
-const popupPlace = new PopupWithForm(popupPlaceSelector,
+const popupPlace = new PopupWithForm(popupPlaceElement,
   //функция при сабмите
   ({title, img}) => {
     const newCard = new Card (title, img,
