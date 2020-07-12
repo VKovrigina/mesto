@@ -11,7 +11,9 @@ import {
   jobInput,
   cardContainer,
   formValidationOptions,
-  popupPhotoSelector } from '../utils/constants.js';
+  popupPhotoSelector,
+  popupPhotoImg,
+  popupPhotoTitle} from '../utils/constants.js';
 import { Card } from '../components/Card.js';
 import { FormValidator } from '../components/FormValidator.js';
 import Section from '../components/Section.js';
@@ -21,7 +23,7 @@ import UserInfo from '../components/UserInfo.js';
 import './index.css';
 
 // -------------------- Всё, что связано с карточками--------------------------
-const popupPhoto = new PopupWithImage(popupPhotoSelector);
+const popupPhoto = new PopupWithImage(popupPhotoSelector, popupPhotoImg, popupPhotoTitle);
 popupPhoto.setEventListeners();
 
 const cardsList = new Section({
