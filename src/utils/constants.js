@@ -1,29 +1,3 @@
-export const initialCards = [
-  {
-      name: 'Чехия',
-      link: 'https://images.unsplash.com/photo-1592838464221-a7268248a9ec?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=701&q=80'
-  },
-  {
-      name: 'Китай',
-      link: 'https://images.unsplash.com/photo-1567266565446-d9c40ccf59a4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80'
-  },
-  {
-      name: 'Чили',
-      link: 'https://images.unsplash.com/photo-1593053272490-e0ed6d6a42c5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80'
-  },
-  {
-      name: 'Норвегия',
-      link: 'https://images.unsplash.com/photo-1588263271366-8232e713ff00?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=80'
-  },
-  {
-      name: 'Англия',
-      link: 'https://images.unsplash.com/photo-1469047616593-20bed1f1217a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDAxNX0&auto=format&fit=crop&w=333&q=80'
-  },
-  {
-      name: 'Бельгия',
-      link: 'https://images.unsplash.com/photo-1572895854902-117546c75fb3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1100&q=80'
-  }
-];
 
 //формы
 export const formProfileSelector = '.popup__form_profile';

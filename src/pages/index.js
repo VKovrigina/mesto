@@ -1,6 +1,5 @@
 //спасибо большое код-ревьюеру! Хорошего вам дня :)
 import {
-  initialCards,
   formProfileSelector,
   formPlaceSelector,
   popupProfileSelector,
@@ -57,28 +56,50 @@ api.getUserInfo(
   }
 )
 
+api.getInitialCards(
+  (res) => {
+    const cardsList = new Section({
+      items: res,
+      renderer: (item) => {
+        const card = new Card(
+          item.name, item.link,
+          { handleCardClick: () => {
+            popupPhoto.open(item.name, item.link);
+          } },
+          '#card-template');
+        const cardElement = card.generateCard();
+        cardsList.addItem(cardElement);
+      },
+    },
+    cardContainer
+    );
+    //отрисовка первоначальных карточек
+    cardsList.renderItems();
+  }
+);
+
 
 /** Всё, что связано с карточками */
 const popupPhoto = new PopupWithImage(popupPhotoElement, popupPhotoImg, popupPhotoTitle);
 popupPhoto.setEventListeners();
 
-const cardsList = new Section({
-  items: initialCards,
-  renderer: (item) => {
-    const card = new Card(
-      item.name, item.link,
-      { handleCardClick: () => {
-        popupPhoto.open(item.name, item.link);
-      } },
-      '#card-template');
-    const cardElement = card.generateCard();
-    cardsList.addItem(cardElement);
-  },
-},
-cardContainer
-);
+// const cardsList = new Section({
+//   items: initialCards,
+//   renderer: (item) => {
+//     const card = new Card(
+//       item.name, item.link,
+//       { handleCardClick: () => {
+//         popupPhoto.open(item.name, item.link);
+//       } },
+//       '#card-template');
+//     const cardElement = card.generateCard();
+//     cardsList.addItem(cardElement);
+//   },
+// },
+// cardContainer
+// );
 //отрисовка первоначальных карточек
-cardsList.renderItems();
+//cardsList.renderItems();
 
 /** Валидация */
 
