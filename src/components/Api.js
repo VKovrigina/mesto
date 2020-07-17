@@ -7,8 +7,8 @@ export default class Api {
     this._authorization = this._headers.authorization;
   }
 
-  getInitialCards(renderer) {
-    fetch(`${this._baseUrl}/cards`, {
+  getInitialCards() {
+    return fetch(`${this._baseUrl}/cards`, {
       headers: {
         authorization: this._authorization
       }
@@ -19,17 +19,13 @@ export default class Api {
       } else {
         return Promise.reject(res.status)
       }})
-    .then((res) => {
-      console.log(res);//TODO:
-      renderer(res);
-    })
     .catch((err) => {
       console.log(`Ошибка: ${err}`);
     })
   }
 
-  getUserInfo(renderer) {
-    fetch(`${this._baseUrl}/users/me`, {
+  getUserInfo() {
+    return fetch(`${this._baseUrl}/users/me`, {
       headers: {
         authorization: this._authorization
       }
@@ -40,25 +36,34 @@ export default class Api {
       } else {
         return Promise.reject(res.status)
       }})
-    .then((res) => {
-      console.log(res);//TODO:
-      renderer(res);
-    })
     .catch((err) => {
       console.log(`Ошибка: ${err}`);
     })
   }
 
-  editProfile(renderer) {
-    fetch(`${this._baseUrl}/users/me`, {
-    method: 'PATCH',
-    headers: this._headers,
-    body: JSON.stringify({
-      name: 'Marie Skłodowska Curie',
-      about: 'Physicist and Chemist'
-    })
-    })
-  }
+  // editProfile(renderer) {
+  //   fetch(`${this._baseUrl}/users/me`, {
+  //   method: 'PATCH',
+  //   headers: this._headers,
+  //   body: JSON.stringify({// сюда get values
+  //     name: 'Marie Skłodowska Curie',
+  //     about: 'Physicist and Chemist'
+  //   })
+  //   })
+  //   .then((res) => {
+  //     if (res.ok) {
+  //       return res.json();
+  //     } else {
+  //       return Promise.reject(res.status)
+  //     }})
+  //   .then((res) => {
+  //     console.log(res);//TODO:
+  //     //renderer(res);
+  //   })
+  //   .catch((err) => {
+  //     console.log(`Ошибка: ${err}`);
+  //   })
+  // }
 
   // другие методы работы с API
 }

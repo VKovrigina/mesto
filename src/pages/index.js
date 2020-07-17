@@ -49,14 +49,20 @@ const api = new Api({
   }
 });
 
-api.getUserInfo(
-  (res) => {
-    userInfo.setUserInfo(res);
-    userInfo.setUserAvatar(res);
-  }
-)
+// api.getUserInfo(
+//   (res) => {
+//     userInfo.setUserInfo(res);
+//     userInfo.setUserAvatar(res);
+//   }
+// )
 
-api.getInitialCards(
+api.getUserInfo().then((res) => {
+  console.log(res);
+  userInfo.setUserInfo(res);
+  userInfo.setUserAvatar(res);
+})
+
+api.getInitialCards().then(
   (res) => {
     const cardsList = new Section({
       items: res,
@@ -77,6 +83,13 @@ api.getInitialCards(
     cardsList.renderItems();
   }
 );
+
+// //api.editProfile(
+//   (res) => {
+//     userInfo.setUserInfo(res);
+//     userInfo.setUserAvatar(res);
+//   }
+// );
 
 
 /** Всё, что связано с карточками */
