@@ -52,7 +52,7 @@ const api = new Api({
 
 const cardsList = new Section({
   renderer: (item) => {
-    console.log(item)
+    console.log(item)//TODO:
         const card = new Card(
           item.name, item.link,
           { handleCardClick: () => {
@@ -70,7 +70,7 @@ api.getInitialCards()
 .then(res => cardsList.renderItems(res))
 
 api.getUserInfo().then((res) => {
-  console.log(res);
+  console.log(res);//TODO:
   userInfo.setUserInfo(res);
   userInfo.setUserAvatar(res);
 })
@@ -109,7 +109,7 @@ popupProfile.setEventListeners();
 const popupPlace = new PopupWithForm(popupPlaceElement,
   //функция при сабмите
   (values) => {
-    console.log(values);
+    console.log(values);//TODO:
     api.createCard(values).then(
       res => cardsList.renderNewItem(res)
     )
