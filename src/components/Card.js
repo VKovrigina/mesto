@@ -1,8 +1,9 @@
 
 export class Card {
-  constructor(titleValue, imgValue, {handleCardClick}, cardSelector) {
-    this._imgValue = imgValue;
-    this._titleValue = titleValue;
+  constructor(item, {handleCardClick}, cardSelector) {
+    this._imgValue = item.link;
+    this._titleValue = item.name;
+    this._likes = item.likes.length;
     this._handleCardClick = handleCardClick;
     this._cardSelector = cardSelector;
   };
@@ -22,9 +23,11 @@ export class Card {
     const cardTitle = this._element.querySelector('.cards__title');
     const cardButtonLike = this._element.querySelector('.cards__button-like');
     const cardButtonDelete = this._element.querySelector('.cards__button-delete');
+    const cardLikes = this._element.querySelector('.cards__num-likes');
     cardImg.src = this._imgValue;
     cardImg.alt = this._titleValue;
     cardTitle.textContent = this._titleValue;
+    cardLikes.textContent = this._likes;
     this._setEventListeners(cardButtonDelete, cardButtonLike, cardImg);
     return this._element;
   };

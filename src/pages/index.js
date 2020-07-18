@@ -49,12 +49,12 @@ const api = new Api({
   }
 });
 
-
+/** Всё, что связано с карточками */
 const cardsList = new Section({
   renderer: (item) => {
     console.log(item)//TODO:
         const card = new Card(
-          item.name, item.link,
+          item,
           { handleCardClick: () => {
             popupPhoto.open(item.name, item.link);
           } },
@@ -76,7 +76,6 @@ api.getUserInfo().then((res) => {
 })
 
 
-/** Всё, что связано с карточками */
 const popupPhoto = new PopupWithImage(popupPhotoElement, popupPhotoImg, popupPhotoTitle);
 popupPhoto.setEventListeners();
 
