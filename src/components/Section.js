@@ -1,16 +1,20 @@
 export default class Section {
-  constructor({ items, renderer }, containerSelector) {
-    this._renderedItems = items;
+  constructor({ renderer }, containerSelector) {
     this._renderer = renderer;
 
     this._container = document.querySelector(containerSelector);
   }
+
   //к каждому элементу массива применяет переданную функцию
-  renderItems() {
-    this._renderedItems.forEach(item => this._renderer(item))
+  renderItems(renderedItems) {
+    renderedItems.reverse().forEach(item => this._renderer(item))
   }
-  //вставляет элемент в контейнер
+
+  renderNewItem(item) {
+    this._renderer(item);
+  }
+
   addItem(element) {
-    this._container.append(element);
-  }
+    this._container.prepend(element)
+     }
 }

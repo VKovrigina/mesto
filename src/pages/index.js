@@ -49,12 +49,25 @@ const api = new Api({
   }
 });
 
-// api.getUserInfo(
-//   (res) => {
-//     userInfo.setUserInfo(res);
-//     userInfo.setUserAvatar(res);
-//   }
-// )
+
+const cardsList = new Section({
+  renderer: (item) => {
+    console.log(item)
+        const card = new Card(
+          item.name, item.link,
+          { handleCardClick: () => {
+            popupPhoto.open(item.name, item.link);
+          } },
+          '#card-template');
+          const cardElement = card.generateCard();
+          cardsList.addItem(cardElement);
+      },
+  },
+    cardContainer
+);
+
+api.getInitialCards()
+.then(res => cardsList.renderItems(res))
 
 api.getUserInfo().then((res) => {
   console.log(res);
@@ -62,57 +75,10 @@ api.getUserInfo().then((res) => {
   userInfo.setUserAvatar(res);
 })
 
-api.getInitialCards().then(
-  (res) => {
-    const cardsList = new Section({
-      items: res,
-      renderer: (item) => {
-        const card = new Card(
-          item.name, item.link,
-          { handleCardClick: () => {
-            popupPhoto.open(item.name, item.link);
-          } },
-          '#card-template');
-        const cardElement = card.generateCard();
-        cardsList.addItem(cardElement);
-      },
-    },
-    cardContainer
-    );
-    //отрисовка первоначальных карточек
-    cardsList.renderItems();
-  }
-);
-
-// //api.editProfile(
-//   (res) => {
-//     userInfo.setUserInfo(res);
-//     userInfo.setUserAvatar(res);
-//   }
-// );
-
 
 /** Всё, что связано с карточками */
 const popupPhoto = new PopupWithImage(popupPhotoElement, popupPhotoImg, popupPhotoTitle);
 popupPhoto.setEventListeners();
-
-// const cardsList = new Section({
-//   items: initialCards,
-//   renderer: (item) => {
-//     const card = new Card(
-//       item.name, item.link,
-//       { handleCardClick: () => {
-//         popupPhoto.open(item.name, item.link);
-//       } },
-//       '#card-template');
-//     const cardElement = card.generateCard();
-//     cardsList.addItem(cardElement);
-//   },
-// },
-// cardContainer
-// );
-//отрисовка первоначальных карточек
-//cardsList.renderItems();
 
 /** Валидация */
 
@@ -128,7 +94,12 @@ const userInfo = new UserInfo('.profile__name', '.profile__job', '.profile__avat
 
 const popupProfile = new PopupWithForm(popupProfileElement,
   (values) => {
-    userInfo.setUserInfo(values);
+    api.editProfile(values).then(
+      (res) => {
+        console.log(res);//TODO:
+        userInfo.setUserInfo(res);
+      }
+    )
   },
  () => {
   profileFormValid.resetErrors();
@@ -137,14 +108,11 @@ popupProfile.setEventListeners();
 
 const popupPlace = new PopupWithForm(popupPlaceElement,
   //функция при сабмите
-  ({title, img}) => {
-    const newCard = new Card (title, img,
-    { handleCardClick: (titleValue, imgValue) => {
-        popupPhoto.open(titleValue, imgValue);
-      }
-    }, '#card-template');
-    const newCardElement = newCard.generateCard();
-    cardsList.addItem(newCardElement);
+  (values) => {
+    console.log(values);
+    api.createCard(values).then(
+      res => cardsList.renderNewItem(res)
+    )
   },
   //функция сброса ошибок
   () => {

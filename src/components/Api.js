@@ -7,21 +7,27 @@ export default class Api {
     this._authorization = this._headers.authorization;
   }
 
+  _handleResponse(res) {
+    if (res.ok) {
+      return res.json();
+    } else {
+      return Promise.reject(res.status)
+    }
+  }
+
+  _handleResponseError(err) {
+    console.log(`Ошибка: ${err}`);
+  }
+
   getInitialCards() {
-    return fetch(`${this._baseUrl}/cards`, {
+    return fetch(`${this._baseUrl}/cards`,
+    {
       headers: {
         authorization: this._authorization
       }
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(res.status)
-      }})
-    .catch((err) => {
-      console.log(`Ошибка: ${err}`);
-    })
+    .then(this._handleResponse)
+    .catch(this._handleResponseError)
   }
 
   getUserInfo() {
@@ -30,40 +36,33 @@ export default class Api {
         authorization: this._authorization
       }
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(res.status)
-      }})
-    .catch((err) => {
-      console.log(`Ошибка: ${err}`);
-    })
+    .then(this._handleResponse)
+    .catch(this._handleResponseError)
   }
 
-  // editProfile(renderer) {
-  //   fetch(`${this._baseUrl}/users/me`, {
-  //   method: 'PATCH',
-  //   headers: this._headers,
-  //   body: JSON.stringify({// сюда get values
-  //     name: 'Marie Skłodowska Curie',
-  //     about: 'Physicist and Chemist'
-  //   })
-  //   })
-  //   .then((res) => {
-  //     if (res.ok) {
-  //       return res.json();
-  //     } else {
-  //       return Promise.reject(res.status)
-  //     }})
-  //   .then((res) => {
-  //     console.log(res);//TODO:
-  //     //renderer(res);
-  //   })
-  //   .catch((err) => {
-  //     console.log(`Ошибка: ${err}`);
-  //   })
-  // }
+  editProfile(values) {
+    return fetch(`${this._baseUrl}/users/me`, {
+    method: 'PATCH',
+    headers: this._headers,
+    body: JSON.stringify(// сюда get values
+      values
+    )
+    })
+    .then(this._handleResponse)
+    .catch(this._handleResponseError)
+  }
+
+  createCard(values) {
+    return fetch(`${this._baseUrl}/cards`, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify(// сюда get values
+        values
+      )
+      })
+      .then(this._handleResponse)
+      .catch(this._handleResponseError)
+  }
 
   // другие методы работы с API
 }
