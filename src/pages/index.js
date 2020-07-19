@@ -11,6 +11,7 @@ import {
   cardContainer,
   formValidationOptions,
   popupPhotoSelector,
+  popupDeleteCardSelector,
   popupPhotoImgSelector,
   popupPhotoTitleSelector} from '../utils/constants.js';
 
@@ -21,6 +22,7 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
+import PopupDeleteCard from '../components/PopupDeleteCard.js'
 import './index.css';
 
 //формы
@@ -30,6 +32,7 @@ const formPlaceElement = document.querySelector(formPlaceSelector);
 const popupProfileElement = document.querySelector(popupProfileSelector);
 const popupPlaceElement = document.querySelector(popupPlaceSelector);
 const popupPhotoElement = document.querySelector(popupPhotoSelector);
+const popupDeleteCardElement = document.querySelector(popupDeleteCardSelector);
 //кнопки
 const buttonEdit = document.querySelector(buttonEditSelector);
 const buttonAdd = document.querySelector(buttonAddSelector);
@@ -57,7 +60,10 @@ const cardsList = new Section({
           item,
           { handleCardClick: () => {
             popupPhoto.open(item.name, item.link);
-          } },
+          },
+          deleteCard: () => {
+            popupDeleteCard.open();
+          }},
           '#card-template');
           const cardElement = card.generateCard();
           cardsList.addItem(cardElement);
@@ -79,6 +85,8 @@ api.getUserInfo().then((res) => {
 const popupPhoto = new PopupWithImage(popupPhotoElement, popupPhotoImg, popupPhotoTitle);
 popupPhoto.setEventListeners();
 
+const popupDeleteCard = new PopupDeleteCard(popupDeleteCardElement);
+popupDeleteCard.setEventListeners();
 /** Валидация */
 
 const profileFormValid = new FormValidator(formValidationOptions, formProfileElement);

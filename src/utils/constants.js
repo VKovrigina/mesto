@@ -6,6 +6,7 @@ export const formPlaceSelector = '.popup__form_place';
 export const popupProfileSelector = '.popup_profile';
 export const popupPlaceSelector = '.popup_place';
 export const popupPhotoSelector = '.popup_photo';
+export const popupDeleteCardSelector = '.popup_delete-card';
 //кнопки
 export const buttonEditSelector = '.profile__edit-button';
 export const buttonAddSelector = '.profile__add-button';

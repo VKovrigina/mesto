@@ -1,11 +1,12 @@
 
 export class Card {
-  constructor(item, {handleCardClick}, cardSelector) {
+  constructor(item, {handleCardClick, deleteCard}, cardSelector) {
     this._imgValue = item.link;
     this._titleValue = item.name;
     this._likes = item.likes.length;
     this._handleCardClick = handleCardClick;
     this._cardSelector = cardSelector;
+    this._deleteCard = deleteCard;//FIXME:
   };
 
   _getTemplate() {
@@ -22,13 +23,13 @@ export class Card {
     const cardImg = this._element.querySelector('.cards__img');
     const cardTitle = this._element.querySelector('.cards__title');
     const cardButtonLike = this._element.querySelector('.cards__button-like');
-    const cardButtonDelete = this._element.querySelector('.cards__button-delete');
+    const cardButtonDelete = this._element.querySelector('.cards__button-delete');//FIXME:
     const cardLikes = this._element.querySelector('.cards__num-likes');
     cardImg.src = this._imgValue;
     cardImg.alt = this._titleValue;
     cardTitle.textContent = this._titleValue;
     cardLikes.textContent = this._likes;
-    this._setEventListeners(cardButtonDelete, cardButtonLike, cardImg);
+    this._setEventListeners(cardButtonDelete, cardButtonLike, cardImg);//FIXME:
     return this._element;
   };
 
@@ -42,7 +43,7 @@ export class Card {
       this._handleCardClick(this._titleValue, this._imgValue);
     })
 
-    buttonDelete.addEventListener('click', () => {
+    buttonDelete.addEventListener('click', () => {//FIXME:
       this._deleteCard();
     })
   };
@@ -51,8 +52,8 @@ export class Card {
     return buttonLike.classList.toggle('cards__button-like_active');
   };
 
-  _deleteCard() {
-    this._element.remove();
-    this._element = null;
-  };
+  // _deleteCard() {
+  //   this._element.remove();
+  //   this._element = null;
+  //};
 };
