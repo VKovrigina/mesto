@@ -72,5 +72,17 @@ export default class Api {
       .then(this._handleResponse)
       .catch(this._handleResponseError)
   }
+
+  editAvatar(values) {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+    method: 'PATCH',
+    headers: this._headers,
+    body: JSON.stringify(
+      values
+    )
+    })
+    .then(this._handleResponse)
+    .catch(this._handleResponseError)
+  }
   // другие методы работы с API
 }

@@ -2,6 +2,7 @@
 import {
   formProfileSelector,
   formPlaceSelector,
+  formAvatarSelector,
   popupProfileSelector,
   popupPlaceSelector,
   buttonEditSelector,
@@ -13,7 +14,9 @@ import {
   popupPhotoSelector,
   popupDeleteCardSelector,
   popupPhotoImgSelector,
-  popupPhotoTitleSelector} from '../utils/constants.js';
+  popupPhotoTitleSelector,
+  popupProfileAvatarSelector,
+  avatarSelector} from '../utils/constants.js';
 
 import Card from '../components/Card.js';
 import { FormValidator } from '../components/FormValidator.js';
@@ -30,14 +33,17 @@ import './index.css';
 //формы
 const formProfileElement = document.querySelector(formProfileSelector);
 const formPlaceElement = document.querySelector(formPlaceSelector);
+const formAvatarElement = document.querySelector(formAvatarSelector);
 //попапы
 const popupProfileElement = document.querySelector(popupProfileSelector);
 const popupPlaceElement = document.querySelector(popupPlaceSelector);
 const popupPhotoElement = document.querySelector(popupPhotoSelector);
 const popupDeleteCardElement = document.querySelector(popupDeleteCardSelector);
+const popupProfileAvatar = document.querySelector(popupProfileAvatarSelector);
 //кнопки
 const buttonEdit = document.querySelector(buttonEditSelector);
 const buttonAdd = document.querySelector(buttonAddSelector);
+const avatarImg = document.querySelector(avatarSelector);
 //поля форм
 const nameInput = formProfileElement.querySelector(nameInputSelector);
 const jobInput = formProfileElement.querySelector(jobInputSelector);
@@ -130,6 +136,9 @@ profileFormValid.enableValidation();
 const placeFormValid = new FormValidator(formValidationOptions, formPlaceElement);
 placeFormValid.enableValidation();
 
+const profileAvatarValid = new FormValidator(formValidationOptions, formAvatarElement);
+profileAvatarValid.enableValidation();
+
 
 // /** Работа с формами */
 // const userInfo = new UserInfo('.profile__name', '.profile__job', '.profile__avatar'); //TODO: переделать на переменные
@@ -147,6 +156,18 @@ const popupProfile = new PopupWithForm(popupProfileElement,
 });
 popupProfile.setEventListeners();
 
+const popupAvatar = new PopupWithForm(popupProfileAvatar,
+  (values) => {
+    api.editAvatar(values)
+    .then((res) => {
+      userInfo.setUserAvatar(res);
+    })
+  },
+  () => {
+    profileAvatarValid.resetErrors();
+  }
+)
+popupAvatar.setEventListeners();
 
 const addActualMeaningProfileForm = () => {
   const {name, job} = userInfo.getUserInfo();
@@ -158,5 +179,8 @@ const addActualMeaningProfileForm = () => {
 buttonEdit.addEventListener('click', () => {
   addActualMeaningProfileForm();
   popupProfile.open();
+});
+avatarImg.addEventListener('click', () => {
+  popupAvatar.open();
 });
 //buttonAdd.addEventListener('click', () => popupPlace.open());
