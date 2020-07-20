@@ -1,12 +1,12 @@
 
-export class Card {
-  constructor(item, {handleCardClick, deleteCard}, cardSelector) {
+export default class Card {
+  constructor(item, {handleCardClick}, cardSelector) {
     this._imgValue = item.link;
     this._titleValue = item.name;
     this._likes = item.likes.length;
     this._handleCardClick = handleCardClick;
     this._cardSelector = cardSelector;
-    this._deleteCard = deleteCard;//FIXME:
+    //this._deleteCard = deleteCard;//FIXME:
   };
 
   _getTemplate() {
@@ -52,8 +52,8 @@ export class Card {
     return buttonLike.classList.toggle('cards__button-like_active');
   };
 
-  // _deleteCard() {
-  //   this._element.remove();
-  //   this._element = null;
-  //};
+  _deleteCard() {
+    this._element.remove();
+    this._element = null;
+  };
 };
