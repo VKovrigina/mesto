@@ -54,39 +54,30 @@ const api = new Api({
   }
 });
 
-const cardsList = new Section({
-  renderer: (item) => {
-    console.log(item)//TODO:
-        const card = new Card(
-          item,
-          { handleCardClick: () => {
-            popupPhoto.open(item.name, item.link);
-          }},
-          '#card-template');
-          const cardElement = card.generateCard();
-          cardsList.addItem(cardElement);
-      },
-  },
-    cardContainer
-  );
+
+const userInfo = new UserInfo('.profile__name', '.profile__job', '.profile__avatar');
 
 Promise.all([api.getUserInfo(), api.getInitialCards()])
 .then(res => {
   userInfo.setUserInfo(res[0]);
   userInfo.setUserAvatar(res[0]);
   const userId = res[0]._id;
-  
+
   const cardsList = new Section({
     renderer: (item) => {
-      console.log(item)//TODO:
-      if (res[1]._id === userId) {
+      if (item.owner._id === userId) {
         const cardUser = new UserCard(
           item,
           { handleCardClick: () => {
             popupPhoto.open(item.name, item.link);
           },
-            deleteCard: () => {
+            deleteCard: (cardId) => {
               popupDeleteCard.open();
+              console.log(cardId);
+              popupDeleteCard.setHandleSubmit(() => {
+                api.deleteCard(cardId)
+                .then(() => {cardUser.delete()})
+              })
           }},
           '#card-template');
           const cardElement = cardUser.generateCard();
@@ -105,38 +96,24 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     },
       cardContainer
     );
-
   cardsList.renderItems(res[1]);
+
+  const popupPlace = new PopupWithForm(popupPlaceElement,
+    //функция при сабмите
+    (values) => {
+      api.createCard(values).then(
+        res => cardsList.renderNewItem(res)
+      )
+    },
+    //функция сброса ошибок
+    () => {
+      placeFormValid.resetErrors();
+    });
+  popupPlace.setEventListeners();
+  buttonAdd.addEventListener('click', () => popupPlace.open());
 
 })
 
-
-
-/** Всё, что связано с карточками */
-// const cardsList = new Section({
-//   renderer: (item) => {
-//     console.log(item)//TODO:
-//         const card = new Card(
-//           item,
-//           { handleCardClick: () => {
-//             popupPhoto.open(item.name, item.link);
-//           }},
-//           '#card-template');
-//           const cardElement = card.generateCard();
-//           cardsList.addItem(cardElement);
-//       },
-//   },
-//     cardContainer
-// );
-
-// api.getInitialCards()
-// .then(res => cardsList.renderItems(res))
-
-// api.getUserInfo().then((res) => {
-//   console.log(res);//TODO:
-//   userInfo.setUserInfo(res);
-//   userInfo.setUserAvatar(res);
-// })
 
 
 const popupPhoto = new PopupWithImage(popupPhotoElement, popupPhotoImg, popupPhotoTitle);
@@ -144,6 +121,7 @@ popupPhoto.setEventListeners();
 
 const popupDeleteCard = new PopupDeleteCard(popupDeleteCardElement);
 popupDeleteCard.setEventListeners();
+
 // /** Валидация */
 
 const profileFormValid = new FormValidator(formValidationOptions, formProfileElement);
@@ -154,12 +132,12 @@ placeFormValid.enableValidation();
 
 
 // /** Работа с формами */
- const userInfo = new UserInfo('.profile__name', '.profile__job', '.profile__avatar'); //TODO: переделать на переменные
+// const userInfo = new UserInfo('.profile__name', '.profile__job', '.profile__avatar'); //TODO: переделать на переменные
 
 const popupProfile = new PopupWithForm(popupProfileElement,
   (values) => {
-    api.editProfile(values).then(
-      (res) => {
+    api.editProfile(values)
+    .then((res) => {
         userInfo.setUserInfo(res);
       }
     )
@@ -169,29 +147,16 @@ const popupProfile = new PopupWithForm(popupProfileElement,
 });
 popupProfile.setEventListeners();
 
-// const popupPlace = new PopupWithForm(popupPlaceElement,
-//   //функция при сабмите
-//   (values) => {
-//     console.log(values);//TODO:
-//     api.createCard(values).then(
-//       res => cardsList.renderNewItem(res)
-//     )
-//   },
-//   //функция сброса ошибок
-//   () => {
-//     placeFormValid.resetErrors();
-//   });
-// popupPlace.setEventListeners();
 
-// const addActualMeaningProfileForm = () => {
-//   const {name, job} = userInfo.getUserInfo();
-//   nameInput.value = name;
-//   jobInput.value = job;
-// }
+const addActualMeaningProfileForm = () => {
+  const {name, job} = userInfo.getUserInfo();
+  nameInput.value = name;
+  jobInput.value = job;
+}
 
 
-// buttonEdit.addEventListener('click', () => {
-//   addActualMeaningProfileForm();
-//   popupProfile.open();
-// });
-// buttonAdd.addEventListener('click', () => popupPlace.open());
+buttonEdit.addEventListener('click', () => {
+  addActualMeaningProfileForm();
+  popupProfile.open();
+});
+//buttonAdd.addEventListener('click', () => popupPlace.open());

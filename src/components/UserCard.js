@@ -4,6 +4,7 @@ export default class UserCard extends Card {
   constructor(item, {handleCardClick, deleteCard}, cardSelector) {
     super(item, {handleCardClick}, cardSelector)
     this._deleteCard = deleteCard;
+    this._id = item._id;
   }
 
   generateCard() {
@@ -21,6 +22,11 @@ export default class UserCard extends Card {
     return this._element;
   };
 
+  delete() {
+    this._element.remove();
+    this._element = null;
+  }
+
   _setEventListeners(buttonDelete, buttonLike, img) {
 
     buttonLike.addEventListener('click', () => {
@@ -32,7 +38,7 @@ export default class UserCard extends Card {
     })
 
     buttonDelete.addEventListener('click', () => {
-      this._deleteCard();
+      this._deleteCard(this._id);
     })
   };
 }

@@ -3,7 +3,7 @@ export default class Api {
     // тело конструктора
     this._baseUrl = options.baseUrl;
     this._headers = options.headers;
-    console.log(this._headers)//TODO:
+    //console.log(this._headers)//TODO:
     this._authorization = this._headers.authorization;
   }
 
@@ -56,7 +56,7 @@ export default class Api {
     return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
       headers: this._headers,
-      body: JSON.stringify(// сюда get values
+      body: JSON.stringify(
         values
       )
       })
@@ -64,5 +64,13 @@ export default class Api {
       .catch(this._handleResponseError)
   }
 
+  deleteCard(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}`, {
+      method: 'DELETE',
+      headers: this._headers
+      })
+      .then(this._handleResponse)
+      .catch(this._handleResponseError)
+  }
   // другие методы работы с API
 }
