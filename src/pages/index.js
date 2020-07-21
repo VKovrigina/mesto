@@ -16,7 +16,9 @@ import {
   popupPhotoImgSelector,
   popupPhotoTitleSelector,
   popupProfileAvatarSelector,
-  avatarSelector} from '../utils/constants.js';
+  avatarSelector,
+  profileNameSelector,
+  profileAboutSelector} from '../utils/constants.js';
 
 import { FormValidator } from '../components/FormValidator.js';
 import Section from '../components/Section.js';
@@ -60,7 +62,7 @@ const api = new Api({
 });
 
 
-const userInfo = new UserInfo('.profile__name', '.profile__job', '.profile__avatar');
+const userInfo = new UserInfo(profileNameSelector, profileAboutSelector, avatarSelector);
 
 Promise.all([api.getUserInfo(), api.getInitialCards()])
 .then(res => {
@@ -81,10 +83,11 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
             },
             deleteCard: (cardId) => {
               popupDelete.open();
-              console.log(cardId);
               popupDelete.setHandleSubmit(() => {
+                popupDelete.renderLoading(true)
                 api.deleteCard(cardId)
                 .then(() => {cardUser.delete()})
+                .finally(() => popupDelete.renderLoading(false));
               })
             },
             putLike: (cardId) => {
@@ -135,8 +138,10 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
   const popupPlace = new PopupWithForm(popupPlaceElement,
       /** функция при сабмите */
     (values) => {
+      popupPlace.renderLoading(true)
       api.createCard(values)
       .then(res => cardsList.renderNewItem(res))
+      .finally(() => popupPlace.renderLoading(false));
     },
       /** функция сброса ошибок */
     () => {
@@ -171,11 +176,13 @@ profileAvatarValid.enableValidation();
 
 const popupProfile = new PopupWithForm(popupProfileElement,
   (values) => {
+    popupProfile.renderLoading(true)
     api.editProfile(values)
     .then((res) => {
         userInfo.setUserInfo(res);
       }
     )
+    .finally(() => popupProfile.renderLoading(false));
   },
  () => {
   profileFormValid.resetErrors();
@@ -184,10 +191,12 @@ popupProfile.setEventListeners();
 
 const popupAvatar = new PopupWithForm(popupProfileAvatar,
   (values) => {
+    popupAvatar.renderLoading(true)
     api.editAvatar(values)
     .then((res) => {
       userInfo.setUserAvatar(res);
     })
+    .finally(() => popupAvatar.renderLoading(false));
   },
   () => {
     profileAvatarValid.resetErrors();

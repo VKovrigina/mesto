@@ -20,6 +20,8 @@ export const cardContainer = '.cards';
 export const popupPhotoImgSelector = '.popup__img';
 export const popupPhotoTitleSelector = '.popup__photo-title';
 export const avatarSelector = '.profile__avatar';
+export const profileNameSelector = '.profile__name';
+export const profileAboutSelector = '.profile__job';
 
 export const formValidationOptions = {
   inputSelector: '.popup__input',
