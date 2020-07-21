@@ -2,7 +2,8 @@ import Popup from './Popup.js';
 
 export default class PopupDeleteCard extends Popup {
   constructor(popup) {
-    super(popup)
+    super(popup);
+    this._button = this._popup.querySelector('.popup__form-button');
   }
 
   setHandleSubmit(submitForm) {
@@ -12,6 +13,11 @@ export default class PopupDeleteCard extends Popup {
   _preventFormDefault(evt) {
     evt.preventDefault();
   };
+
+  open() {
+    super.open();
+    this._button.focus();
+  }
 
   setEventListeners() {
     super.setEventListeners();
