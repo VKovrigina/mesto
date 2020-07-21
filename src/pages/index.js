@@ -12,7 +12,7 @@ import {
   cardContainer,
   formValidationOptions,
   popupPhotoSelector,
-  popupDeleteCardSelector,
+  popupDeleteSelector,
   popupPhotoImgSelector,
   popupPhotoTitleSelector,
   popupProfileAvatarSelector,
@@ -24,7 +24,7 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
-import PopupDeleteCard from '../components/PopupDeleteCard.js';
+import PopupDelete from '../components/PopupDelete.js';
 import UserCard from '../components/UserCard.js';
 import DefaultCard from '../components/DefaultCard.js';
 import './index.css';
@@ -37,7 +37,7 @@ const formAvatarElement = document.querySelector(formAvatarSelector);
 const popupProfileElement = document.querySelector(popupProfileSelector);
 const popupPlaceElement = document.querySelector(popupPlaceSelector);
 const popupPhotoElement = document.querySelector(popupPhotoSelector);
-const popupDeleteCardElement = document.querySelector(popupDeleteCardSelector);
+const popupDeleteElement = document.querySelector(popupDeleteSelector);
 const popupProfileAvatar = document.querySelector(popupProfileAvatarSelector);
 /** кнопки */
 const buttonEdit = document.querySelector(buttonEditSelector);
@@ -80,9 +80,9 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
             popupPhoto.open(item.name, item.link);
             },
             deleteCard: (cardId) => {
-              popupDeleteCard.open();
+              popupDelete.open();
               console.log(cardId);
-              popupDeleteCard.setHandleSubmit(() => {
+              popupDelete.setHandleSubmit(() => {
                 api.deleteCard(cardId)
                 .then(() => {cardUser.delete()})
               })
@@ -152,8 +152,8 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 const popupPhoto = new PopupWithImage(popupPhotoElement, popupPhotoImg, popupPhotoTitle);
 popupPhoto.setEventListeners();
 
-const popupDeleteCard = new PopupDeleteCard(popupDeleteCardElement);
-popupDeleteCard.setEventListeners();
+const popupDelete = new PopupDelete(popupDeleteElement);
+popupDelete.setEventListeners();
 
  /** Валидация */
 

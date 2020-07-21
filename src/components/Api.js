@@ -1,9 +1,7 @@
 export default class Api {
   constructor(options) {
-    // тело конструктора
     this._baseUrl = options.baseUrl;
     this._headers = options.headers;
-    //console.log(this._headers)//TODO:
     this._authorization = this._headers.authorization;
   }
 
@@ -44,7 +42,7 @@ export default class Api {
     return fetch(`${this._baseUrl}/users/me`, {
     method: 'PATCH',
     headers: this._headers,
-    body: JSON.stringify(// сюда get values
+    body: JSON.stringify(
       values
     )
     })
@@ -102,5 +100,4 @@ export default class Api {
       .then(this._handleResponse)
       .catch(this._handleResponseError)
   }
-  // другие методы работы с API
 }

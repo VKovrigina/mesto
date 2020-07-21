@@ -7,7 +7,7 @@ export const formAvatarSelector = '.popup__form_avatar';
 export const popupProfileSelector = '.popup_profile';
 export const popupPlaceSelector = '.popup_place';
 export const popupPhotoSelector = '.popup_photo';
-export const popupDeleteCardSelector = '.popup_delete-card';
+export const popupDeleteSelector = '.popup_delete-card';
 export const popupProfileAvatarSelector = '.popup_edit-avatar';
 //кнопки
 export const buttonEditSelector = '.profile__edit-button';
