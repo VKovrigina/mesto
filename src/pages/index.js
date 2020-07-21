@@ -18,7 +18,6 @@ import {
   popupProfileAvatarSelector,
   avatarSelector} from '../utils/constants.js';
 
-import Card from '../components/Card.js';
 import { FormValidator } from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
@@ -30,21 +29,21 @@ import UserCard from '../components/UserCard.js';
 import DefaultCard from '../components/DefaultCard.js';
 import './index.css';
 
-//формы
+/** формы */
 const formProfileElement = document.querySelector(formProfileSelector);
 const formPlaceElement = document.querySelector(formPlaceSelector);
 const formAvatarElement = document.querySelector(formAvatarSelector);
-//попапы
+/** попапы */
 const popupProfileElement = document.querySelector(popupProfileSelector);
 const popupPlaceElement = document.querySelector(popupPlaceSelector);
 const popupPhotoElement = document.querySelector(popupPhotoSelector);
 const popupDeleteCardElement = document.querySelector(popupDeleteCardSelector);
 const popupProfileAvatar = document.querySelector(popupProfileAvatarSelector);
-//кнопки
+/** кнопки */
 const buttonEdit = document.querySelector(buttonEditSelector);
 const buttonAdd = document.querySelector(buttonAddSelector);
 const avatarImg = document.querySelector(avatarSelector);
-//поля форм
+/** поля форм */
 const nameInput = formProfileElement.querySelector(nameInputSelector);
 const jobInput = formProfileElement.querySelector(jobInputSelector);
 
@@ -71,12 +70,15 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 
   const cardsList = new Section({
     renderer: (item) => {
+      let isLiked = item.likes.some((like) => {
+        return like._id === userId;
+      })
       if (item.owner._id === userId) {
         const cardUser = new UserCard(
-          item,
+          item, isLiked,
           { handleCardClick: () => {
             popupPhoto.open(item.name, item.link);
-          },
+            },
             deleteCard: (cardId) => {
               popupDeleteCard.open();
               console.log(cardId);
@@ -84,16 +86,42 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
                 api.deleteCard(cardId)
                 .then(() => {cardUser.delete()})
               })
-          }},
+            },
+            putLike: (cardId) => {
+              api.putLike(cardId)
+              .then((res) => {
+                cardUser.addLike(res.likes.length)
+              })
+            },
+            deleteLike: (cardId) => {
+              api.deleteLike(cardId)
+              .then((res) => {
+                cardUser.removeLike(res.likes.length)
+              })
+            }
+          },
           '#card-template');
           const cardElement = cardUser.generateCard();
           cardsList.addItem(cardElement);
       } else {
         const cardDefault = new DefaultCard(
-          item,
+          item, isLiked,
           { handleCardClick: () => {
             popupPhoto.open(item.name, item.link);
-          }},
+          },
+          putLike: (cardId) => {
+            api.putLike(cardId)
+            .then((res) => {
+              cardDefault.addLike(res.likes.length)
+            })
+          },
+          deleteLike: (cardId) => {
+            api.deleteLike(cardId)
+            .then((res) => {
+              cardDefault.removeLike(res.likes.length)
+            })
+          }
+          },
           '#card-template-defaut');
           const cardElement = cardDefault.generateCard();
           cardsList.addItem(cardElement);
@@ -101,23 +129,22 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     },
     },
       cardContainer
-    );
-  cardsList.renderItems(res[1]);
+  );
+    cardsList.renderItems(res[1]);
 
   const popupPlace = new PopupWithForm(popupPlaceElement,
-    //функция при сабмите
+      /** функция при сабмите */
     (values) => {
-      api.createCard(values).then(
-        res => cardsList.renderNewItem(res)
-      )
+      api.createCard(values)
+      .then(res => cardsList.renderNewItem(res))
     },
-    //функция сброса ошибок
+      /** функция сброса ошибок */
     () => {
       placeFormValid.resetErrors();
-    });
+    }
+  );
   popupPlace.setEventListeners();
   buttonAdd.addEventListener('click', () => popupPlace.open());
-
 })
 
 
@@ -128,7 +155,7 @@ popupPhoto.setEventListeners();
 const popupDeleteCard = new PopupDeleteCard(popupDeleteCardElement);
 popupDeleteCard.setEventListeners();
 
-// /** Валидация */
+ /** Валидация */
 
 const profileFormValid = new FormValidator(formValidationOptions, formProfileElement);
 profileFormValid.enableValidation();
@@ -140,8 +167,7 @@ const profileAvatarValid = new FormValidator(formValidationOptions, formAvatarEl
 profileAvatarValid.enableValidation();
 
 
-// /** Работа с формами */
-// const userInfo = new UserInfo('.profile__name', '.profile__job', '.profile__avatar'); //TODO: переделать на переменные
+ /** Работа с формами */
 
 const popupProfile = new PopupWithForm(popupProfileElement,
   (values) => {
@@ -175,7 +201,6 @@ const addActualMeaningProfileForm = () => {
   jobInput.value = job;
 }
 
-
 buttonEdit.addEventListener('click', () => {
   addActualMeaningProfileForm();
   popupProfile.open();
@@ -183,4 +208,4 @@ buttonEdit.addEventListener('click', () => {
 avatarImg.addEventListener('click', () => {
   popupAvatar.open();
 });
-//buttonAdd.addEventListener('click', () => popupPlace.open());
+

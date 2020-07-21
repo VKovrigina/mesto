@@ -84,5 +84,23 @@ export default class Api {
     .then(this._handleResponse)
     .catch(this._handleResponseError)
   }
+
+  putLike(cardId) {
+    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+      method: 'PUT',
+      headers: this._headers
+      })
+      .then(this._handleResponse)
+      .catch(this._handleResponseError)
+  }
+
+  deleteLike(cardId) {
+    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+      method: 'DELETE',
+      headers: this._headers
+      })
+      .then(this._handleResponse)
+      .catch(this._handleResponseError)
+  }
   // другие методы работы с API
 }

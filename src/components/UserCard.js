@@ -1,10 +1,9 @@
 import Card from './Card.js';
 // с удалением
 export default class UserCard extends Card {
-  constructor(item, {handleCardClick, deleteCard}, cardSelector) {
-    super(item, {handleCardClick}, cardSelector)
+  constructor(item, isLiked, {handleCardClick, deleteCard, putLike, deleteLike}, cardSelector) {
+    super(item, isLiked, {handleCardClick, putLike, deleteLike}, cardSelector)
     this._deleteCard = deleteCard;
-    this._id = item._id;
   }
 
   generateCard() {
@@ -14,10 +13,13 @@ export default class UserCard extends Card {
     const cardButtonLike = this._element.querySelector('.cards__button-like');
     const cardButtonDelete = this._element.querySelector('.cards__button-delete');
     const cardLikes = this._element.querySelector('.cards__num-likes');
+    if (this._isLiked) {
+      cardButtonLike.classList.add('cards__button-like_active');
+    }
     cardImg.src = this._imgValue;
     cardImg.alt = this._titleValue;
     cardTitle.textContent = this._titleValue;
-    cardLikes.textContent = this._likes;
+    cardLikes.textContent = this._likesLength;
     this._setEventListeners(cardButtonDelete, cardButtonLike, cardImg);
     return this._element;
   };
