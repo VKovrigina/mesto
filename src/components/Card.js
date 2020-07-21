@@ -6,7 +6,6 @@ export default class Card {
     this._likes = item.likes.length;
     this._handleCardClick = handleCardClick;
     this._cardSelector = cardSelector;
-    //this._deleteCard = deleteCard;//FIXME:
   };
 
   _getTemplate() {
@@ -18,22 +17,7 @@ export default class Card {
     return cardElement;
   };
 
-  generateCard() {
-    this._element = this._getTemplate();
-    const cardImg = this._element.querySelector('.cards__img');
-    const cardTitle = this._element.querySelector('.cards__title');
-    const cardButtonLike = this._element.querySelector('.cards__button-like');
-    const cardButtonDelete = this._element.querySelector('.cards__button-delete');//FIXME:
-    const cardLikes = this._element.querySelector('.cards__num-likes');
-    cardImg.src = this._imgValue;
-    cardImg.alt = this._titleValue;
-    cardTitle.textContent = this._titleValue;
-    cardLikes.textContent = this._likes;
-    this._setEventListeners(cardButtonDelete, cardButtonLike, cardImg);//FIXME:
-    return this._element;
-  };
-
-  _setEventListeners(buttonDelete, buttonLike, img) {
+  _setEventListeners(buttonLike, img) {
 
     buttonLike.addEventListener('click', () => {
       this._toggleLike(buttonLike);
@@ -43,17 +27,10 @@ export default class Card {
       this._handleCardClick(this._titleValue, this._imgValue);
     })
 
-    buttonDelete.addEventListener('click', () => {//FIXME:
-      this._deleteCard();
-    })
   };
 
   _toggleLike(buttonLike) {
     return buttonLike.classList.toggle('cards__button-like_active');
   };
 
-  _deleteCard() {
-    this._element.remove();
-    this._element = null;
-  };
 };

@@ -15,19 +15,8 @@ export default class DefaultCard extends Card {
     cardImg.alt = this._titleValue;
     cardTitle.textContent = this._titleValue;
     cardLikes.textContent = this._likes;
-    this._setEventListeners(cardButtonLike, cardImg);
+    super._setEventListeners(cardButtonLike, cardImg);
     return this._element;
-  };
-
-  _setEventListeners(buttonLike, img) {
-
-    buttonLike.addEventListener('click', () => {
-      this._toggleLike(buttonLike);
-    })
-
-    img.addEventListener('click', () => {
-      this._handleCardClick(this._titleValue, this._imgValue);
-    })
   };
 
 }

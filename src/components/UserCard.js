@@ -28,14 +28,7 @@ export default class UserCard extends Card {
   }
 
   _setEventListeners(buttonDelete, buttonLike, img) {
-
-    buttonLike.addEventListener('click', () => {
-      this._toggleLike(buttonLike);
-    })
-
-    img.addEventListener('click', () => {
-      this._handleCardClick(this._titleValue, this._imgValue);
-    })
+    super._setEventListeners(buttonLike, img);
 
     buttonDelete.addEventListener('click', () => {
       this._deleteCard(this._id);
