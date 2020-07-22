@@ -15,11 +15,13 @@
     <main class="content">
 
       <section class="profile">
-        <img class="profile__avatar" src="./images/jacques-yves-cousteau.jpg" alt="Фотография пользователя">
+        <button class="profile__avatar-button">
+          <img class="profile__avatar" alt="Фотография пользователя">
+        </button>
         <div class="profile__info">
-          <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <h1 class="profile__name"></h1>
           <button class="profile__edit-button button" type="button" aria-label="Изменить"></button>
-          <p class="profile__job">Исследователь океана</p>
+          <p class="profile__job"></p>
         </div>
         <button class="profile__add-button button" type="button" aria-label="Добавить"></button>
       </section>
@@ -40,7 +42,23 @@
               <img class="cards__img" alt="">
               <div class="cards__info">
                 <h2 class="cards__title"></h2>
-                <button class="cards__button-like" type="button" aria-label="Нравится"></button>
+                <div class="cards__likes">
+                  <button class="cards__button-like" type="button" aria-label="Нравится"></button>
+                  <div class="cards__num-likes"></div>
+                </div>
+              </div>
+      </article>
+    </template>
+
+    <template id="card-template-defaut">
+      <article class="cards__item">
+              <img class="cards__img" alt="">
+              <div class="cards__info">
+                <h2 class="cards__title"></h2>
+                <div class="cards__likes">
+                  <button class="cards__button-like" type="button" aria-label="Нравится"></button>
+                  <div class="cards__num-likes"></div>
+                </div>
               </div>
       </article>
     </template>
@@ -64,7 +82,7 @@
 
           <input
             type="text"
-            name="job"
+            name="about"
             class="popup__input popup__input_type_job"
             id="job-input"
             placeholder="О себе"
@@ -86,7 +104,7 @@
 
             <input
               type="text"
-              name="title"
+              name="name"
               class="popup__input popup__input_type_title"
               id="title-input"
               placeholder="Название"
@@ -97,7 +115,7 @@
 
             <input
               type="url"
-              name="img"
+              name="link"
               class="popup__input popup__input_type_img"
               id="img-input"
               placeholder="Ссылка на картинку"
@@ -116,6 +134,34 @@
           class="popup__img"
           alt="">
         <p class="popup__photo-title"></p>
+      </div>
+    </div>
+
+    <div class="popup popup_delete-card popup_form">
+      <div class="popup__container">
+        <button class="popup__close-button button"></button>
+        <form class="popup__form">
+        <h2 class="popup__title">Вы уверены?</h2>
+        <button class="popup__form-button" type="submit">Да</button>
+      </form>
+      </div>
+    </div>
+
+    <div class="popup popup_edit-avatar popup_form">
+      <div class="popup__container">
+        <button class="popup__close-button button"></button>
+        <form class="popup__form popup__form_avatar">
+        <h2 class="popup__title">Сменить аватар</h2>
+        <input
+              type="url"
+              name="avatar"
+              class="popup__input popup__input_type_avatar"
+              id="avatar-input"
+              placeholder="https://..."
+            required>
+            <span class="popup__input-error" id="avatar-input-error"></span>
+        <button class="popup__form-button" type="submit">Сохранить</button>
+      </form>
       </div>
     </div>
 

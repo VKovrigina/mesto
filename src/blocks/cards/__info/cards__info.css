@@ -3,5 +3,6 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin: 20px 0 0;
+  padding: 0;
+  margin: 4px 0 0;
 }
