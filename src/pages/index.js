@@ -68,7 +68,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 
   const cardsList = new Section({
     renderer: (item) => {
-      let isLiked = item.likes.some((like) => {
+      const isLiked = item.likes.some((like) => {
         return like._id === userId;
       })
       if (item.owner._id === userId) {
