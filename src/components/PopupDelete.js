@@ -16,6 +16,7 @@ export default class PopupDelete extends Popup {
 
   open() {
     super.open();
+    this._popup.querySelector('.popup__form-button').textContent = 'Удалить'
     this._button.focus();
   }
 
@@ -24,7 +25,12 @@ export default class PopupDelete extends Popup {
     this._popup.addEventListener('submit', (evt) => {
       this._preventFormDefault(evt);
       this._handleSubmit();
-      this.close();
     })
+  }
+
+  renderLoading(isLoading) {
+    isLoading
+    ? this._popup.querySelector('.popup__form-button').textContent = 'Удаление...'
+    : this.close();
   }
 }

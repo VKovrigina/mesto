@@ -31,6 +31,7 @@ export default class PopupWithForm extends Popup {
   open() {
     this._resetErrors();
     super.open();
+    this._popup.querySelector('.popup__form-button').textContent = 'Сохранить'
   }
 
   renderLoading(isLoading) {
