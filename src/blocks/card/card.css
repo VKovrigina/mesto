@@ -1,0 +1,34 @@
+@import url(./__button-like/card__button-like.css);
+@import url(./__button-like/_active/card__button-like_active.css);
+@import url(./__info/card__info.css);
+@import url(./__img/card__img.css);
+@import url(./__title/card__title.css);
+@import url(./__button-delete/card__button-delete.css);
+@import url(./__likes/card__likes.css);
+@import url(./__num-likes/card__num-likes.css);
+
+.card {
+  overflow: hidden;
+  width: 100%;
+  height: 361px;
+  border-radius: 10px;
+  background: #fff;
+  object-fit: contain;
+  position: relative;
+}
+
+/* .cards {
+  position: relative;
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, 282px);
+  grid-column-gap: 17px;
+  grid-row-gap: 20px;
+  margin: 47px auto 66px;
+}
+
+@media screen and (max-width: 930px) {
+  .cards {
+    margin: 36px auto 48px;
+  }
+} */
