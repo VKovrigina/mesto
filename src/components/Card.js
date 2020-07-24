@@ -16,7 +16,7 @@ export default class Card {
     const cardElement = document
       .querySelector(this._cardSelector)
       .content
-      .querySelector('.cards__item')
+      .querySelector('.card')
       .cloneNode(true);
     return cardElement;
   };
@@ -34,14 +34,14 @@ export default class Card {
   };
 
   removeLike(likesLength) {
-    this._element.querySelector('.cards__button-like').classList.toggle('cards__button-like_active');
-    this._element.querySelector('.cards__num-likes').textContent = likesLength;
+    this._element.querySelector('.card__button-like').classList.toggle('card__button-like_active');
+    this._element.querySelector('.card__num-likes').textContent = likesLength;
     this._isLiked = !this._isLiked;
   }
 
   addLike(likesLength) {
-    this._element.querySelector('.cards__button-like').classList.toggle('cards__button-like_active');
-    this._element.querySelector('.cards__num-likes').textContent = likesLength;
+    this._element.querySelector('.card__button-like').classList.toggle('card__button-like_active');
+    this._element.querySelector('.card__num-likes').textContent = likesLength;
     this._isLiked = !this._isLiked;
   }
 

@@ -8,13 +8,13 @@ export default class UserCard extends Card {
 
   generateCard() {
     this._element = this._getTemplate();
-    const cardImg = this._element.querySelector('.cards__img');
-    const cardTitle = this._element.querySelector('.cards__title');
-    const cardButtonLike = this._element.querySelector('.cards__button-like');
-    const cardButtonDelete = this._element.querySelector('.cards__button-delete');
-    const cardLikes = this._element.querySelector('.cards__num-likes');
+    const cardImg = this._element.querySelector('.card__img');
+    const cardTitle = this._element.querySelector('.card__title');
+    const cardButtonLike = this._element.querySelector('.card__button-like');
+    const cardButtonDelete = this._element.querySelector('.card__button-delete');
+    const cardLikes = this._element.querySelector('.card__num-likes');
     if (this._isLiked) {
-      cardButtonLike.classList.add('cards__button-like_active');
+      cardButtonLike.classList.add('card__button-like_active');
     }
     cardImg.src = this._imgValue;
     cardImg.alt = this._titleValue;
